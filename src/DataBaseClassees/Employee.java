@@ -1,23 +1,32 @@
 package DataBaseClassees;
-
-public class Employee {
+public class Employee  {
+    private int employeeID;
     private String employeeName;
     private double employeeSalary;
     private String employeePhoneNumber;
     private String employeeAddress;
-    private int employeeMonthlyDaysWorked;
-    private int employeeYearExperience;
+    private double employeeMonthlyDaysWorked;
+    private double employeeYearExperience;
 
     public Employee() {
     }
 
-    public Employee(String employeeName, double employeeSalary, String employeePhoneNumber, String employeeAddress, int employeeMonthlyDaysWorked, int employeeYearExperience) {
+    public Employee(int employeeID, String employeeName, double employeeSalary, String employeePhoneNumber, String employeeAddress, double employeeMonthlyDaysWorked, double employeeYearExperience) {
+        this.employeeID = employeeID;
         this.employeeName = employeeName;
         this.employeeSalary = employeeSalary;
         this.employeePhoneNumber = employeePhoneNumber;
         this.employeeAddress = employeeAddress;
         this.employeeMonthlyDaysWorked = employeeMonthlyDaysWorked;
         this.employeeYearExperience = employeeYearExperience;
+    }
+
+    public int getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
     public String getEmployeeName() {
@@ -52,26 +61,27 @@ public class Employee {
         this.employeeAddress = employeeAddress;
     }
 
-    public int getEmployeeMonthlyDaysWorked() {
+    public double getEmployeeMonthlyDaysWorked() {
         return employeeMonthlyDaysWorked;
     }
 
-    public void setEmployeeMonthlyDaysWorked(int employeeMonthlyDaysWorked) {
+    public void setEmployeeMonthlyDaysWorked(double employeeMonthlyDaysWorked) {
         this.employeeMonthlyDaysWorked = employeeMonthlyDaysWorked;
     }
 
-    public int getEmployeeYearExperience() {
+    public double getEmployeeYearExperience() {
         return employeeYearExperience;
     }
 
-    public void setEmployeeYearExperience(int employeeYearExperience) {
+    public void setEmployeeYearExperience(double employeeYearExperience) {
         this.employeeYearExperience = employeeYearExperience;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeName='" + employeeName + '\'' +
+                "employeeID=" + employeeID +
+                ", employeeName='" + employeeName + '\'' +
                 ", employeeSalary=" + employeeSalary +
                 ", employeePhoneNumber='" + employeePhoneNumber + '\'' +
                 ", employeeAddress='" + employeeAddress + '\'' +
@@ -79,4 +89,5 @@ public class Employee {
                 ", employeeYearExperience=" + employeeYearExperience +
                 '}';
     }
+
 }

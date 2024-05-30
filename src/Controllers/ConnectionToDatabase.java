@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public final class ConnectionToDatabase {
+public final class  ConnectionToDatabase {
 
 
     private String spURL;
@@ -20,7 +20,7 @@ public final class ConnectionToDatabase {
         this.port = "3306";
         this.spName = "technical center";
         this.spUsername = "root";
-        this.spPassword = "Abood@waleed123";
+        this.spPassword = "212rr735";
     }
 
     public Connection connectToDB() {
@@ -28,7 +28,7 @@ public final class ConnectionToDatabase {
             spURL = "jdbc:mysql://" + this.URl + ":" + this.port + "/" + this.spName + "?verifyServerCertificate=false";
             Properties properties = new Properties();
             properties.setProperty("user", spUsername);
-            properties.setProperty("password", spPassword);
+            properties.setPrope3rty("password", spPassword);
             properties.setProperty("useSSl", "false");
             properties.setProperty("autoReconnect", "true");
             Class.forName("com.mysql.cj.jdbc.Driver");
