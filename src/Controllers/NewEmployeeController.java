@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class EmployeeController implements Initializable {
+public class NewEmployeeController implements Initializable {
 
     @FXML
     private Button addEmployee;
