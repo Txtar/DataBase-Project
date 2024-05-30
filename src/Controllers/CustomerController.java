@@ -1,18 +1,31 @@
 package Controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class CustomerController {
 
     @FXML
-    private Button addCustomer;
+    private Button addNewCustomerButton;
 
     @FXML
-    void addCustomer(ActionEvent event) {
-        System.out.println("Zakaria ");
+    private TextField customerIDTxt1;
 
-    }
+    @FXML
+    private TextField customerNameTxt1;
+
+    @FXML
+    private AnchorPane outputPane;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private Button showCustomersButton;
+
+    @FXML
+    private Button updateCustomersButton;
 
 }
