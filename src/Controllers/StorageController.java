@@ -13,12 +13,6 @@ public class StorageController {
     private TextField ApplianceModelTxt;
 
     @FXML
-    private TextField ApplianceNameTxt;
-
-    @FXML
-    private Button GotoaddAppliance;
-
-    @FXML
     private TableColumn<?, ?> ModelNumColumn;
 
     @FXML
@@ -31,10 +25,35 @@ public class StorageController {
     private TableColumn<?, ?> StorageNameColumn;
 
     @FXML
+    private Button btDelete;
+
+    @FXML
+    private Button btNewAppliance;
+
+    @FXML
+    private Button btRefresh;
+
+    @FXML
+    private Button btSearch;
+
+    @FXML
+    private Button btUpdate;
+
+    @FXML
+    private ComboBox<?> combAppliance;
+
+    @FXML
     private ComboBox<?> combStorage;
 
     @FXML
-    private Button showAllAppliances;
+    void handleBtRefresh(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleCombSAppliance(ActionEvent event) {
+
+    }
 
     @FXML
     void handleCombStorage(ActionEvent event) {

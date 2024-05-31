@@ -18,7 +18,7 @@ public final class  ConnectionToDatabase {
     public ConnectionToDatabase() {
         this.URl = "127.0.0.1";
         this.port = "3306";
-        this.spName = "technical center";
+        this.spName = "technicalcenter";
         this.spUsername = "root";
         this.spPassword = "212rr735";
     }
@@ -28,7 +28,7 @@ public final class  ConnectionToDatabase {
             spURL = "jdbc:mysql://" + this.URl + ":" + this.port + "/" + this.spName + "?verifyServerCertificate=false";
             Properties properties = new Properties();
             properties.setProperty("user", spUsername);
-            properties.setPrope3rty("password", spPassword);
+            properties.setProperty("password", spPassword);
             properties.setProperty("useSSl", "false");
             properties.setProperty("autoReconnect", "true");
             Class.forName("com.mysql.cj.jdbc.Driver");
