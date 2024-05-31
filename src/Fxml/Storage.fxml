@@ -20,7 +20,7 @@
       </Label>
       <AnchorPane prefHeight="88.0" prefWidth="574.0" style="-fx-background-color: #910018;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="206.0" layoutY="20.0" prefHeight="49.0" prefWidth="320.0" text="Storage Managment" textFill="WHITE" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="20.0">
+            <Label layoutX="227.0" layoutY="20.0" prefHeight="49.0" prefWidth="371.0" text="Storage Managment" textFill="WHITE" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="226.0" AnchorPane.topAnchor="20.0">
                <font>
                   <Font name="System Bold" size="33.0" />
                </font>
