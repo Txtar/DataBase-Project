@@ -15,6 +15,9 @@ public class TransactionsController {
     private TableColumn<?, ?> ApplianceModelColumn;
 
     @FXML
+    private TableColumn<?, ?> Company;
+
+    @FXML
     private Button DeleteTransaction;
 
     @FXML
