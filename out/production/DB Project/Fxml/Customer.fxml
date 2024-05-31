@@ -59,22 +59,22 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="showCustomersButton" layoutX="543.0" layoutY="81.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="149.0" text="Show all Customers" textFill="#910018" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="543.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="81.0">
+                  <Button fx:id="showCustomersButton" layoutX="543.0" layoutY="81.0" mnemonicParsing="false" onAction="#showCustomersButton" prefHeight="30.0" prefWidth="149.0" text="Show all Customers" textFill="#910018" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="543.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="81.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addNewCustomerButton" layoutX="154.0" layoutY="81.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="149.0" text="Add New Customer" textFill="#910018" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="428.0" AnchorPane.topAnchor="81.0">
+                  <Button fx:id="addNewCustomerButton" layoutX="154.0" layoutY="81.0" mnemonicParsing="false" onAction="#addNewCustomerButton" prefHeight="30.0" prefWidth="149.0" text="Add New Customer" textFill="#910018" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="428.0" AnchorPane.topAnchor="81.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="searchButton" layoutX="543.0" layoutY="36.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="149.0" text="Search" textFill="#910018" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="543.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="36.0">
+                  <Button fx:id="searchButton" layoutX="543.0" layoutY="36.0" mnemonicParsing="false" onAction="#searchButton" prefHeight="30.0" prefWidth="149.0" text="Search" textFill="#910018" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="543.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="36.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="updateCustomersButton" layoutX="355.0" layoutY="81.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="149.0" text="Update a Customer" textFill="#910018" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="355.0" AnchorPane.rightAnchor="227.0" AnchorPane.topAnchor="81.0">
+                  <Button fx:id="updateCustomersButton" layoutX="355.0" layoutY="81.0" mnemonicParsing="false" onAction="#updateCustomersButton" prefHeight="30.0" prefWidth="149.0" text="Update a Customer" textFill="#910018" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="355.0" AnchorPane.rightAnchor="227.0" AnchorPane.topAnchor="81.0">
                      <font>
                         <Font size="14.0" />
                      </font>

@@ -15,7 +15,7 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="88.0" prefWidth="574.0" style="-fx-background-color: #910018;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="189.0" layoutY="20.0" prefHeight="49.0" prefWidth="398.0" text="Transactions Managment" textFill="WHITE" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="20.0">
+            <Label layoutX="317.0" layoutY="20.0" prefHeight="49.0" prefWidth="415.0" text="Transactions Managment" textFill="WHITE" AnchorPane.leftAnchor="317.0" AnchorPane.rightAnchor="317.0" AnchorPane.topAnchor="20.0">
                <font>
                   <Font name="System Bold" size="33.0" />
                </font>
