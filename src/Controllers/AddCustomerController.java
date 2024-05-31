@@ -41,7 +41,7 @@ public class AddCustomerController {
     }
 
     @FXML
-    void addEmployee(ActionEvent event) {
+    void addCustomer(ActionEvent event) {
 
     }
 

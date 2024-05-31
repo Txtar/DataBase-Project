@@ -57,7 +57,7 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <Button fx:id="addCustomerButton" layoutX="139.0" layoutY="427.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #910018;" stylesheets="@../Style/Style.css" text="Add Customer" textFill="#910018">
+      <Button fx:id="addCustomerButton" layoutX="139.0" layoutY="427.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #910018;" stylesheets="@../Style/Style.css" text="Add Customer" textFill="#910018">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

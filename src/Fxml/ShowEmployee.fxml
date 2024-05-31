@@ -14,13 +14,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="655.0" prefWidth="1212.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ShowEmployeeController">
+<AnchorPane prefHeight="655.0" prefWidth="1212.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ShowEmployeeController">
     <children>
-        <Button fx:id="searchEmployee" layoutX="353.0" layoutY="125.0" mnemonicParsing="false" onAction="#searchEmployee" prefHeight="48.0" prefWidth="173.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Display employees" textFill="#830707">
-            <font>
-                <Font name="System Bold" size="15.0" />
-            </font>
-        </Button>
       <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="125.0" prefHeight="48.0" prefWidth="290.0" spacing="10.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label text="Search" textFill="#910018">
@@ -74,22 +69,22 @@
                </font></Label>
          </children>
       </Pane>
-      <Button fx:id="insertNewEmployee" layoutX="545.0" layoutY="125.0" mnemonicParsing="false" onAction="#insertNewEmployee" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert New Employees" textFill="#830707">
+      <Button fx:id="insertNewEmployee" layoutX="503.0" layoutY="124.0" mnemonicParsing="false" onAction="#insertNewEmployee" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert New Employees" textFill="#830707">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="updateEmployees" layoutX="966.0" layoutY="152.0" mnemonicParsing="false" onAction="#updateEmployees" prefHeight="41.0" prefWidth="226.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Update Employee" textFill="#830707">
+      <Button fx:id="updateEmployees" layoutX="973.0" layoutY="129.0" mnemonicParsing="false" onAction="#updateEmployees" prefHeight="41.0" prefWidth="226.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Update Employee" textFill="#830707">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="deleteEmployee" layoutX="966.0" layoutY="106.0" mnemonicParsing="false" onAction="#deleteEmployee" prefHeight="41.0" prefWidth="226.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Delete Employee" textFill="#830707">
+      <Button fx:id="deleteEmployee" layoutX="715.0" layoutY="127.0" mnemonicParsing="false" onAction="#deleteEmployee" prefHeight="41.0" prefWidth="226.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Delete Employee" textFill="#830707">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btRefresh" layoutX="748.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Refresh" textFill="#830707">
+      <Button fx:id="btRefresh" layoutX="315.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Refresh" textFill="#830707">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

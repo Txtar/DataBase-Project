@@ -46,7 +46,22 @@ public class StorageController {
     private ComboBox<?> combStorage;
 
     @FXML
+    void handleBtDelete(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleBtNewAppliance(ActionEvent event) {
+
+    }
+
+    @FXML
     void handleBtRefresh(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleBtUpdate(ActionEvent event) {
 
     }
 
@@ -57,6 +72,11 @@ public class StorageController {
 
     @FXML
     void handleCombStorage(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleSearchBtR(ActionEvent event) {
 
     }
 

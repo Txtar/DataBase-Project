@@ -51,22 +51,22 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btNewAppliance" layoutX="339.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="30.0" prefWidth="155.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="New Appliance" textFill="#830707">
+            <Button fx:id="btNewAppliance" layoutX="339.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleBtNewAppliance" prefHeight="30.0" prefWidth="155.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="New Appliance" textFill="#830707">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btSearch" layoutX="501.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="33.0" prefWidth="149.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Search" textFill="#830707">
+            <Button fx:id="btSearch" layoutX="501.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleSearchBtR" prefHeight="33.0" prefWidth="149.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Search" textFill="#830707">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btUpdate" layoutX="501.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="33.0" prefWidth="149.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Update" textFill="#830707">
+            <Button fx:id="btUpdate" layoutX="501.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleBtUpdate" prefHeight="33.0" prefWidth="149.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Update" textFill="#830707">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btDelete" layoutX="661.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="33.0" prefWidth="155.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Delete" textFill="#830707">
+            <Button fx:id="btDelete" layoutX="661.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleBtDelete" prefHeight="33.0" prefWidth="155.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Delete" textFill="#830707">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
