@@ -2,7 +2,13 @@ package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainController {
 
@@ -28,38 +34,45 @@ public class MainController {
     private Button TransactionsInterface;
 
     @FXML
-    void AppliancesInterface(ActionEvent event) {
+    void AppliancesInterface(ActionEvent event) throws IOException {
+        loadFXML("Appliances.fxml");
+    }
+
+    @FXML
+    void CompanyInterface(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void CompanyInterface(ActionEvent event) {
+    void CustomerInterface(ActionEvent event) throws IOException {
+        loadFXML("Customer.fxml");
+    }
+
+    @FXML
+    void EmployeesInterface(ActionEvent event) throws IOException {
+        loadFXML("ShowEmployee.fxml");
+    }
+
+    @FXML
+    void PaymentsInterface(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void CustomerInterface(ActionEvent event) {
-
+    void StorageInterface(ActionEvent event) throws IOException {
+        loadFXML("Storage.fxml");
     }
 
     @FXML
-    void EmployeesInterface(ActionEvent event) {
-
+    void TransactionsInterface(ActionEvent event) throws IOException {
+        loadFXML("Transactions.fxml");
     }
 
-    @FXML
-    void PaymentsInterface(ActionEvent event) {
-
+    private void loadFXML(String fxmlFile) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/" + fxmlFile));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
-
-    @FXML
-    void StorageInterface(ActionEvent event) {
-
-    }
-
-    @FXML
-    void TransactionsInterface(ActionEvent event) {
-
-    }
-
 }
