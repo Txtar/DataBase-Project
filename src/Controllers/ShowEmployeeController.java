@@ -76,8 +76,10 @@ public class ShowEmployeeController implements Initializable {
         ObservableList<Employee> employees = FXCollections.observableArrayList();
 
         try {
-            ConnectionToDatabase connection = new ConnectionToDatabase();
-            Connection con = connection.connectToDB();
+
+        ConnectionToDatabase connection = new ConnectionToDatabase();
+        connection.setCredentials("yourUsername", "yourPassword");
+        Connection con = connection.connectToDB();
 
             if (con != null) {
                 String sql = "SELECT * FROM Employee";
@@ -157,10 +159,11 @@ public class ShowEmployeeController implements Initializable {
         }
 
     }
-    @Override
+   @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ConnectionToDatabase connection = new ConnectionToDatabase();
-        con = connection.connectToDB();
+        connection.setCredentials("yourUsername", "yourPassword");
+        Connection con = connection.connectToDB();
 
         cmID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         cmName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
