@@ -5,6 +5,7 @@ public class Storage {
     private String storageLocation;
 
     public Storage() {
+        super();
     }
 
     public Storage(int storageID, String storageLocation) {
@@ -27,12 +28,5 @@ public class Storage {
     public void setStorageLocation(String storageLocation) {
         this.storageLocation = storageLocation;
     }
-
-    @Override
-    public String toString() {
-        return "Storage{" +
-                "storageID=" + storageID +
-                ", storageLocation='" + storageLocation + '\'' +
-                '}';
-    }
 }
+
