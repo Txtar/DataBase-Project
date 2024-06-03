@@ -32,7 +32,9 @@ public class PasswordTemplate {
         ConnectionToDatabase connectionToDatabase = new ConnectionToDatabase();
 
         // Set the username and password
+/*
         connectionToDatabase.setCredentials(username, password);
+*/
 
         // Connect to the database
         Connection connection = connectionToDatabase.connectToDB();
