@@ -93,7 +93,7 @@
                   <Image url="@../icon/Price.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtPurchaseDate1" prefHeight="35.0" prefWidth="182.0" promptText="Total Price" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+            <TextField fx:id="txtTotalPrice" prefHeight="35.0" prefWidth="182.0" promptText="Total Price" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
                <HBox.margin>
                   <Insets left="15.0" top="15.0" />
                </HBox.margin>

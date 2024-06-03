@@ -3,7 +3,7 @@ package DataBaseClassees;
 
 public class EmployeeAppliancesCustomersTransactions {
     private int employeeID;
-    private int modelNumber;
+    private String modelNumber;
     private int customerID;
 
     public EmployeeAppliancesCustomersTransactions() {
@@ -11,7 +11,7 @@ public class EmployeeAppliancesCustomersTransactions {
 
     }
 
-    public EmployeeAppliancesCustomersTransactions(int employeeID, int modelNumber, int customerID) {
+    public EmployeeAppliancesCustomersTransactions(int employeeID, String modelNumber, int customerID) {
         this.employeeID = employeeID;
         this.modelNumber = modelNumber;
         this.customerID = customerID;
@@ -25,11 +25,11 @@ public class EmployeeAppliancesCustomersTransactions {
         this.employeeID = employeeID;
     }
 
-    public int getModelNumber() {
+    public String getModelNumber() {
         return modelNumber;
     }
 
-    public void setModelNumber(int modelNumber) {
+    public void setModelNumber(String modelNumber) {
         this.modelNumber = modelNumber;
     }
 

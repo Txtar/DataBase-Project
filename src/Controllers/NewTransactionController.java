@@ -27,10 +27,10 @@ public class NewTransactionController {
     private TextField txtPurchaseDate;
 
     @FXML
-    private TextField txtPurchaseDate1;
+    private TextField txtQuantity;
 
     @FXML
-    private TextField txtQuantity;
+    private TextField txtTotalPrice;
 
     @FXML
     void ComboxCompany(ActionEvent event) {
