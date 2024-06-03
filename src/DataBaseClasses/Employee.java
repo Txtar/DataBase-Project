@@ -1,4 +1,4 @@
-package DataBaseClassees;
+package DataBaseClasses;
 public class Employee  {
     private int employeeID;
     private String employeeName;

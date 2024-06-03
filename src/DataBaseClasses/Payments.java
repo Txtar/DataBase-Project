@@ -1,4 +1,4 @@
-package DataBaseClassees;
+package DataBaseClasses;
 
 import java.util.Date;
 
