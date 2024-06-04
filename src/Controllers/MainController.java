@@ -40,6 +40,7 @@ public class MainController {
 
     @FXML
     void CompanyInterface(ActionEvent event) throws IOException {
+        loadFXML("Company.fxml");
 
     }
 
@@ -55,7 +56,7 @@ public class MainController {
 
     @FXML
     void PaymentsInterface(ActionEvent event) throws IOException {
-
+        loadFXML("Payment.fxml");
     }
 
     @FXML
