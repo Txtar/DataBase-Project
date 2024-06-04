@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="677.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppliancesController">
+<AnchorPane prefHeight="677.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppliancesController">
    <children>
       <TableView fx:id="tableProducts" editable="true" layoutX="19.0" layoutY="229.0" prefHeight="423.0" prefWidth="939.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
@@ -24,7 +24,7 @@
             <TableColumn fx:id="cmSellingPrice" editable="false" prefWidth="127.0" sortable="false" text="Selling Price" />
             <TableColumn fx:id="cmQuantity" editable="false" prefWidth="110.0" sortable="false" text="Quantity" />
             <TableColumn fx:id="cmWarrantee" editable="false" prefWidth="108.0" sortable="false" text="Warrantee " />
-            <TableColumn fx:id="cmCompanyName" editable="false" prefWidth="154.0" sortable="false" text="Company Name" />
+            <TableColumn fx:id="cmCompanyID" editable="false" prefWidth="154.0" sortable="false" text="Company ID" />
          </columns>
          <opaqueInsets>
             <Insets />

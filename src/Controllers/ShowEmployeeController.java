@@ -25,7 +25,7 @@ import java.sql.*;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import DataBaseClassees.Employee;
+import DataBaseClasses.Employee;
 
 public class ShowEmployeeController implements Initializable {
 

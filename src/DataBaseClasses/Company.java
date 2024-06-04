@@ -1,4 +1,4 @@
-package DataBaseClassees;
+package DataBaseClasses;
 
 public class Company {
     private int companyID;
@@ -6,6 +6,8 @@ public class Company {
     private String address;
     private String phoneNumber;
     private String account;
+
+
 
     public Company() {
         super();

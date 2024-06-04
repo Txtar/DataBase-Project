@@ -1,4 +1,4 @@
-package DataBaseClassees;
+package DataBaseClasses;
 
 public class Storage {
     private int storageID;

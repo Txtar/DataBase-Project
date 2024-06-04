@@ -1,20 +1,17 @@
-package DataBaseClassees;
+package DataBaseClasses;
 
 public class Appliances {
-    private int modelNumber;
+    private String modelNumber;
     private String applianceName;
     private String warranteeForPeriodOfTime;
-    private float buyingPrice;
-    private float offerPrice;
-    private float sellingPrice;
+    private double buyingPrice;
+    private double offerPrice;
+    private double sellingPrice;
     private int quantity;
     private int storageID;
+    private int companyID;
 
-    public Appliances() {
-        super();
-    }
-
-    public Appliances(int modelNumber, String applianceName, String warranteeForPeriodOfTime, float buyingPrice, float offerPrice, float sellingPrice, int quantity, int storageID) {
+    public Appliances(String modelNumber, String applianceName, String warranteeForPeriodOfTime, double buyingPrice, double offerPrice, double sellingPrice, int quantity, int storageID, int companyID) {
         this.modelNumber = modelNumber;
         this.applianceName = applianceName;
         this.warranteeForPeriodOfTime = warranteeForPeriodOfTime;
@@ -23,13 +20,14 @@ public class Appliances {
         this.sellingPrice = sellingPrice;
         this.quantity = quantity;
         this.storageID = storageID;
+        this.companyID = companyID;
     }
 
-    public int getModelNumber() {
+    public String getModelNumber() {
         return modelNumber;
     }
 
-    public void setModelNumber(int modelNumber) {
+    public void setModelNumber(String modelNumber) {
         this.modelNumber = modelNumber;
     }
 
@@ -49,27 +47,27 @@ public class Appliances {
         this.warranteeForPeriodOfTime = warranteeForPeriodOfTime;
     }
 
-    public float getBuyingPrice() {
+    public double getBuyingPrice() {
         return buyingPrice;
     }
 
-    public void setBuyingPrice(float buyingPrice) {
+    public void setBuyingPrice(double buyingPrice) {
         this.buyingPrice = buyingPrice;
     }
 
-    public float getOfferPrice() {
+    public double getOfferPrice() {
         return offerPrice;
     }
 
-    public void setOfferPrice(float offerPrice) {
+    public void setOfferPrice(double offerPrice) {
         this.offerPrice = offerPrice;
     }
 
-    public float getSellingPrice() {
+    public double getSellingPrice() {
         return sellingPrice;
     }
 
-    public void setSellingPrice(float sellingPrice) {
+    public void setSellingPrice(double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 
@@ -87,5 +85,13 @@ public class Appliances {
 
     public void setStorageID(int storageID) {
         this.storageID = storageID;
+    }
+
+    public int getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
     }
 }
