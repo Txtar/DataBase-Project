@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="697.0" prefWidth="1126.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PaymentDetailsController">
+   <children>
+      <TableView fx:id="tablePaymentDetails" layoutX="35.0" layoutY="158.0" prefHeight="470.0" prefWidth="1058.0" styleClass="table" stylesheets="@../Style/Style.css">
+         <columns>
+            <TableColumn fx:id="cmModelNumber" editable="false" prefWidth="211.0" sortable="false" text="Model Number" />
+            <TableColumn fx:id="cmApplianceName" editable="false" prefWidth="265.0" sortable="false" text="Appliance Name" />
+            <TableColumn fx:id="cmCustomerID" editable="false" prefWidth="253.0" sortable="false" text="Customer ID" />
+            <TableColumn fx:id="cmQuantity" editable="false" prefWidth="378.0" sortable="false" text="Quantity" />
+         </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TableView>
+      <Pane layoutY="-2.0" prefHeight="93.0" prefWidth="1126.0" style="-fx-background-color: #910018;">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="100.0" layoutX="47.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/PaymentDetails.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="199.0" layoutY="23.0" prefHeight="48.0" prefWidth="329.0" text="Payment Details" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TextField fx:id="txtCustomerName" layoutX="161.0" layoutY="105.0" prefHeight="35.0" prefWidth="182.0" promptText="Customer Name" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="35.0" layoutY="105.0" prefHeight="35.0" prefWidth="126.0" text="Customer Name :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Pane layoutY="649.0" prefHeight="57.0" prefWidth="1126.0" style="-fx-background-color: #910018;">
+         <children>
+            <Label layoutX="27.0" layoutY="10.0" prefHeight="35.0" prefWidth="132.0" text="Payment Method :" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="combPaymentMethod" editable="true" layoutX="159.0" layoutY="7.0" onAction="#handlePaymentMethod" prefHeight="35.0" prefWidth="198.0" promptText="Payment Method" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;" />
+            <Label layoutX="390.0" layoutY="7.0" prefHeight="35.0" prefWidth="145.0" text="Last Payment Date :" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPaymentDate" layoutX="535.0" layoutY="7.0" prefHeight="35.0" prefWidth="182.0" promptText="Last Payment Date" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="725.0" layoutY="7.0" prefHeight="35.0" prefWidth="72.0" text="Amount :" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtAmount" layoutX="797.0" layoutY="7.0" prefHeight="35.0" prefWidth="182.0" promptText="Amount" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+         </children></Pane>
+      <Label layoutX="376.0" layoutY="105.0" prefHeight="35.0" prefWidth="87.0" text="Payment ID :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPaymentId" layoutX="463.0" layoutY="105.0" prefHeight="35.0" prefWidth="182.0" promptText="Payment ID " style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>
