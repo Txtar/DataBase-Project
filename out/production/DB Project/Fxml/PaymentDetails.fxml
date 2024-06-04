@@ -15,12 +15,12 @@
 
 <AnchorPane prefHeight="697.0" prefWidth="1126.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PaymentDetailsController">
    <children>
-      <TableView fx:id="tableEmployee" layoutX="35.0" layoutY="158.0" prefHeight="470.0" prefWidth="1058.0" styleClass="table" stylesheets="@../Style/Style.css">
+      <TableView fx:id="tablePaymentDetails" layoutX="35.0" layoutY="158.0" prefHeight="470.0" prefWidth="1058.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmModelNumber" editable="false" prefWidth="211.0" sortable="false" text="Model Number" />
             <TableColumn fx:id="cmApplianceName" editable="false" prefWidth="265.0" sortable="false" text="Appliance Name" />
-            <TableColumn fx:id="cmQuantity" editable="false" prefWidth="253.0" sortable="false" text="Quantity" />
-            <TableColumn fx:id="cmCustomerID" editable="false" prefWidth="378.0" sortable="false" text="Customer ID" />
+            <TableColumn fx:id="cmCustomerID" editable="false" prefWidth="253.0" sortable="false" text="Customer ID" />
+            <TableColumn fx:id="cmQuantity" editable="false" prefWidth="378.0" sortable="false" text="Quantity" />
          </columns>
          <opaqueInsets>
             <Insets />
