@@ -1,0 +1,197 @@
+-- Drop the existing TechnicalCenter database if it exists and create a new one
+DROP DATABASE IF EXISTS TechnicalCenter;
+CREATE DATABASE TechnicalCenter;
+USE TechnicalCenter;
+
+-- Create Employee table
+CREATE TABLE Employee (
+    employeeID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    employeeName VARCHAR(64) NOT NULL,
+    employeeSalary DOUBLE,
+    employeePhoneNumber VARCHAR(32),
+    employeeAddress VARCHAR(32),
+    employeeMonthlyDaysWorked DOUBLE,
+    employeeYearExperience DOUBLE
+);
+
+-- Insert demo data into Employee table
+INSERT INTO Employee (employeeName, employeeSalary, employeePhoneNumber, employeeAddress, employeeMonthlyDaysWorked, employeeYearExperience)
+VALUES
+    ('abood', 1000.0, '05931315930', 'hebron', 25, 2),
+    ('john', 1200.0, '05931315931', 'ramallah', 20, 1); -- Added another employee for demonstration
+
+-- Create Storage table
+CREATE TABLE Storage (
+    storageID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    storageLocation VARCHAR(255)
+);
+
+-- Create Customers table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    CustomerName VARCHAR(100),
+    PhoneNumber VARCHAR(15),
+    Address VARCHAR(255)
+);
+
+-- Create Payments table
+CREATE TABLE Payments (
+    PaymentID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    DateOfPayment DATE,
+    Amount REAL,
+    PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
+    CustomerID INT,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+-- Create Company table
+CREATE TABLE Company (
+    CompanyID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    CompanyName VARCHAR(100),
+    Address VARCHAR(255),
+    PhoneNumber VARCHAR(15),
+    Account VARCHAR(50)
+);
+
+-- Create Appliances table
+CREATE TABLE Appliances (
+    ModelNumber VARCHAR(20) PRIMARY KEY NOT NULL,
+    ApplianceName VARCHAR(100),
+    WarranteeForPeriodOfTime VARCHAR(50),
+    BuyingPrice REAL,
+    OfferPrice REAL,
+    SellingPrice REAL,
+    Quantity INT,
+    StorageID INT,
+    FOREIGN KEY (StorageID) REFERENCES Storage(StorageID)
+);
+
+-- Create Transactions table
+CREATE TABLE Transactions (
+    Transaction_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    Purchase_Date DATE,
+    Quantity_Bought INT,
+    Total_Price REAL,
+    CompanyID INT,
+    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID)
+);
+
+-- Create EmployeeStorageAccess table
+CREATE TABLE EmployeeStorageAccess (
+    employeeID INT,
+    StorageID INT,
+    PRIMARY KEY (employeeID, StorageID),
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
+    FOREIGN KEY (StorageID) REFERENCES Storage(storageID)
+);
+
+-- Create EmployeeAppliancesCustomersTransactions table
+CREATE TABLE EmployeeAppliancesCustomersTransactions (
+    employeeID INT,
+    ModelNumber VARCHAR(20),
+    CustomerID INT,
+    PRIMARY KEY (employeeID, ModelNumber, CustomerID),
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+-- Create Installment table
+CREATE TABLE Installment (
+    PaymentID INT PRIMARY KEY,
+    InstallmentPeriod INT,
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+);
+
+-- Create Credit table
+CREATE TABLE Credit (
+    PaymentID INT PRIMARY KEY,
+    CreditCardNumber VARCHAR(20),
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+);
+
+-- Create Cash table
+CREATE TABLE Cash (
+    PaymentID INT PRIMARY KEY,
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+);
+
+-- Update Employee data
+UPDATE Employee
+SET employeeName = 'Abood',
+    employeeSalary = 1500.0,
+    employeePhoneNumber = '0593915930',
+    employeeAddress = 'Hebron',
+    employeeMonthlyDaysWorked = 28,
+    employeeYearExperience = 3
+WHERE employeeID = 1;
+
+-- Show data in Employee table
+SELECT * FROM Employee;
+
+-- Insert demo values into Storage
+INSERT INTO Storage (storageLocation)
+VALUES ('Warehouse A'),
+       ('Warehouse B');
+
+-- Insert demo values into Customers
+INSERT INTO Customers (CustomerName, PhoneNumber, Address)
+VALUES ('Alice Johnson', '555-8765', '789 Oak St'),
+       ('Bob Brown', '555-4321', '321 Pine St');
+
+-- Insert demo values into Company
+INSERT INTO Company (CompanyName, Address, PhoneNumber, Account)
+VALUES ('Tech Corp', '456 Technology Dr', '555-9999', 'ACC123'),
+       ('Home Goods Inc.', '123 Market St', '555-8888', 'ACC456');
+
+-- Insert demo values into Appliances
+INSERT INTO Appliances (ModelNumber, ApplianceName, WarranteeForPeriodOfTime, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID)
+VALUES ('301', 'Washing Machine', '2 years', 400.00, 450.00, 500.00, 10, 1),
+       ('302', 'Refrigerator', '3 years', 300.00, 350.00, 400.00, 5, 2);
+
+-- Insert demo values into Transactions
+INSERT INTO Transactions (Purchase_Date, Quantity_Bought, Total_Price, CompanyID)
+VALUES ('2024-05-10', 1, 500.00, 1),  -- Corrected CompanyID to match existing data
+       ('2024-05-12', 2, 800.00, 2);  -- Corrected CompanyID to match existing data
+
+-- Insert demo values into Payments
+INSERT INTO Payments (DateOfPayment, Amount, PaymentMethod, CustomerID)
+VALUES ('2024-05-01', 150.00, 'Credit', 1),
+       ('2024-05-05', 200.00, 'Cash', 2),
+       ('2024-05-10', 300.00, 'Installment', 1);
+
+-- Insert demo values into Installment
+INSERT INTO Installment (PaymentID, InstallmentPeriod)
+VALUES (3, 12);
+
+-- Insert demo values into Credit
+INSERT INTO Credit (PaymentID, CreditCardNumber)
+VALUES (1, '1234-5678-9012-3456');
+
+-- Insert demo values into Cash
+INSERT INTO Cash (PaymentID)
+VALUES (2);
+
+-- Insert demo values into EmployeeStorageAccess
+INSERT INTO EmployeeStorageAccess (employeeID, StorageID)
+VALUES (1, 1),
+       (1, 2); 
+
+-- Insert demo values into EmployeeAppliancesCustomersTransactions
+INSERT INTO EmployeeAppliancesCustomersTransactions (employeeID, ModelNumber, CustomerID)
+VALUES (1, '301', 1),
+       (2, '302', 2);
+
+-- Show data in tables
+SELECT * FROM Employee;
+SELECT * FROM Storage;
+SELECT * FROM Customers;
+SELECT * FROM Company;
+SELECT * FROM Appliances;
+SELECT * FROM Transactions;
+SELECT * FROM Payments;
+SELECT * FROM Installment;
+SELECT * FROM Credit;
+SELECT * FROM Cash;
+SELECT * FROM EmployeeStorageAccess;
+SELECT * FROM EmployeeAppliancesCustomersTransactions;
