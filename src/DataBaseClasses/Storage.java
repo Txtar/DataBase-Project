@@ -1,12 +1,9 @@
 package DataBaseClasses;
 
 public class Storage {
+
     private int storageID;
     private String storageLocation;
-
-    public Storage() {
-        super();
-    }
 
     public Storage(int storageID, String storageLocation) {
         this.storageID = storageID;
@@ -29,4 +26,3 @@ public class Storage {
         this.storageLocation = storageLocation;
     }
 }
-
