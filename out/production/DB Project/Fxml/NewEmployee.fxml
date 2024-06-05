@@ -68,7 +68,7 @@
                   <Insets left="15.0" top="20.0" />
                </HBox.margin>
                <image>
-                  <Image url="@../icon/Monthly Days Worked.png" />
+                  <Image url="@../icon/MonthlyDaysWorked.png" />
                </image>
             </ImageView>
             <TextField fx:id="txtMonthlyDaysWorked" prefHeight="35.0" prefWidth="178.0" promptText="Monthly Days Worked" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
