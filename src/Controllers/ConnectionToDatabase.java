@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public final class  ConnectionToDatabase {
-
-
     private String spURL;
     private final String spUsername;
     private final String spPassword;

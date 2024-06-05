@@ -5,7 +5,7 @@ import java.util.Date;
 public class Payments {
     private int paymentID;
     private Date dateOfPayment;
-    private float amount;
+    private double amount;
     private String paymentMethod;
     private int customerID;
 
@@ -13,7 +13,7 @@ public class Payments {
         super();
     }
 
-    public Payments(int paymentID, Date dateOfPayment, float amount, String paymentMethod, int customerID) {
+    public Payments(int paymentID, Date dateOfPayment, double amount, String paymentMethod, int customerID) {
         this.paymentID = paymentID;
         this.dateOfPayment = dateOfPayment;
         this.amount = amount;
@@ -37,11 +37,11 @@ public class Payments {
         this.dateOfPayment = dateOfPayment;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

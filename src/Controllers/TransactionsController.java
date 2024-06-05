@@ -1,47 +1,54 @@
 package Controllers;
 
+import DataBaseClasses.Transactions;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class TransactionsController {
+public class TransactionsController implements Initializable {
 
     @FXML
     private Button AddnewTransaction;
 
     @FXML
-    private TableColumn<?, ?> ApplianceModelColumn;
+    private TableColumn<Transactions, Integer> TransactionIDColumn;
 
     @FXML
-    private TableColumn<?, ?> Company;
+    private TableColumn<Transactions, String> PurchaseDateColumn;
+
+    @FXML
+    private TableColumn<Transactions, Integer> QuantityBoughtColumn;
+
+    @FXML
+    private TableColumn<Transactions, Double> TotalPriceColumn;
+
+    @FXML
+    private TableColumn<Transactions, Double> TransactionAmountColumn;
+
+    @FXML
+    private TableColumn<Transactions, String> CompanyColumn;
 
     @FXML
     private Button DeleteTransaction;
-
-    @FXML
-    private TableColumn<?, ?> PurchaseDate;
-
-    @FXML
-    private TableColumn<?, ?> QuantityBoughtColumn;
-
-    @FXML
-    private TableColumn<?, ?> TotalPriceColumn;
-
-    @FXML
-    private TableColumn<?, ?> TransactionAmountColumn;
-
-    @FXML
-    private TableColumn<?, ?> TransactionIDColumn;
 
     @FXML
     private Button UpdateTransaction;
@@ -54,6 +61,46 @@ public class TransactionsController {
 
     @FXML
     private TextField txtSearch;
+
+    @FXML
+    private TableView<Transactions> tableTransactions;
+
+    private ObservableList<Transactions> transactionsList = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        TransactionIDColumn.setCellValueFactory(new PropertyValueFactory<>("transactionID"));
+        PurchaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("purchaseDate"));
+        QuantityBoughtColumn.setCellValueFactory(new PropertyValueFactory<>("quantityBought"));
+        TotalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+        TransactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        CompanyColumn.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+
+        loadTransactionsData();
+    }
+
+    private void loadTransactionsData() {
+        String query = "SELECT t.*, c.CompanyName FROM Transactions t JOIN Company c ON t.CompanyID = c.CompanyID";
+
+        try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            transactionsList.clear();
+            while (rs.next()) {
+                Transactions transaction = new Transactions(
+                        rs.getInt("Transaction_ID"),
+                        rs.getDate("Purchase_Date"),
+                        rs.getDouble("Amount"),
+                        rs.getInt("Quantity_Bought"),
+                        rs.getDouble("Total_Price"),
+                        rs.getInt("CompanyID")
+                );
+                transaction.setCompanyName(rs.getString("CompanyName"));
+                transactionsList.add(transaction);
+            }
+            tableTransactions.setItems(transactionsList);
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
     @FXML
     void AddTransaction(ActionEvent event) {
@@ -72,33 +119,77 @@ public class TransactionsController {
 
     @FXML
     void DeleteTransaction(ActionEvent event) {
-
+        Transactions selectedTransaction = tableTransactions.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            String deleteQuery = "DELETE FROM Transactions WHERE Transaction_ID = ?";
+            try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(deleteQuery)) {
+                pstmt.setInt(1, selectedTransaction.getTransactionID());
+                pstmt.executeUpdate();
+                transactionsList.remove(selectedTransaction);
+                Message.displayMassage("Success", "Transaction deleted successfully!");
+            } catch (SQLException e) {
+                Message.displayMassage("Error", e.getMessage());
+            }
+        } else {
+            Message.displayMassage("Error", "No transaction selected!");
+        }
     }
 
     @FXML
     void UpdateTransaction(ActionEvent event) {
-
+        Transactions selectedTransaction = tableTransactions.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/NewTransaction.fxml"));
+                Parent root = loader.load();
+                NewTransactionController controller = loader.getController();
+                controller.loadTransactionData(selectedTransaction);
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("Update Transaction");
+                window.setScene(new Scene(root));
+                window.setResizable(false);
+                window.show();
+            } catch (IOException exception) {
+                Message.displayMassage("Warning", exception.getMessage());
+            }
+        } else {
+            Message.displayMassage("Error", "No transaction selected!");
+        }
     }
 
     @FXML
     void handleBtRefresh(ActionEvent event) {
-
+        loadTransactionsData();
     }
 
     @FXML
     void handleBtSearch(ActionEvent event) {
+        String search = txtSearch.getText();
+        if (search == null || search.trim().isEmpty()) {
+            loadTransactionsData();
+            return;
+        }
 
-//        if (!this.txtSearch.getText().trim().isEmpty()) {
-//            if (!Methods.isNumber(this.txtSearch.getText().trim())) {
-//                Message.displayMassage("Warning", " Employee id is invalid ");
-//                this.txtSearch.clear();
-//                return;
-//            }
-//
-//
-//            this.execute(" where E.employeeID=" + Integer.parseInt(this.txtSearch.getText().trim()));
-//        }
+        String query = "SELECT t.*, c.CompanyName FROM Transactions t JOIN Company c ON t.CompanyID = c.CompanyID WHERE t.Transaction_ID LIKE '%" + search + "%'";
 
+        try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            transactionsList.clear();
+            while (rs.next()) {
+                Transactions transaction = new Transactions(
+                        rs.getInt("Transaction_ID"),
+                        rs.getDate("Purchase_Date"),
+                        rs.getDouble("Amount"),
+                        rs.getInt("Quantity_Bought"),
+                        rs.getDouble("Total_Price"),
+                        rs.getInt("CompanyID")
+                );
+                transaction.setCompanyName(rs.getString("CompanyName"));
+                transactionsList.add(transaction);
+            }
+            tableTransactions.setItems(transactionsList);
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
-
 }
