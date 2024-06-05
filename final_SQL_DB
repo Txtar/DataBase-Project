@@ -14,12 +14,6 @@ CREATE TABLE Employee (
     employeeYearExperience DOUBLE
 );
 
--- Insert demo data into Employee table
-INSERT INTO Employee (employeeName, employeeSalary, employeePhoneNumber, employeeAddress, employeeMonthlyDaysWorked, employeeYearExperience)
-VALUES
-    ('abood', 1000.0, '05931315930', 'hebron', 25, 2),
-    ('john', 1200.0, '05931315931', 'ramallah', 20, 1); -- Added another employee for demonstration
-
 -- Create Storage table
 CREATE TABLE Storage (
     storageID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -63,6 +57,8 @@ CREATE TABLE Appliances (
     SellingPrice REAL,
     Quantity INT,
     StorageID INT,
+    CompanyID Int,
+    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID),
     FOREIGN KEY (StorageID) REFERENCES Storage(StorageID)
 );
 
@@ -70,6 +66,7 @@ CREATE TABLE Appliances (
 CREATE TABLE Transactions (
     Transaction_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Purchase_Date DATE,
+    Amount REAL,
     Quantity_Bought INT,
     Total_Price REAL,
     CompanyID INT,
@@ -116,6 +113,11 @@ CREATE TABLE Cash (
     FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
 );
 
+INSERT INTO Employee (employeeName, employeeSalary, employeePhoneNumber, employeeAddress, employeeMonthlyDaysWorked, employeeYearExperience)
+VALUES
+    ('abood', 1000.0, '05931315930', 'hebron', 25, 2),
+    ('john', 1200.0, '05931315931', 'ramallah', 20, 1);
+
 -- Update Employee data
 UPDATE Employee
 SET employeeName = 'Abood',
@@ -145,14 +147,14 @@ VALUES ('Tech Corp', '456 Technology Dr', '555-9999', 'ACC123'),
        ('Home Goods Inc.', '123 Market St', '555-8888', 'ACC456');
 
 -- Insert demo values into Appliances
-INSERT INTO Appliances (ModelNumber, ApplianceName, WarranteeForPeriodOfTime, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID)
-VALUES ('301', 'Washing Machine', '2 years', 400.00, 450.00, 500.00, 10, 1),
-       ('302', 'Refrigerator', '3 years', 300.00, 350.00, 400.00, 5, 2);
+INSERT INTO Appliances (ModelNumber, ApplianceName, WarranteeForPeriodOfTime, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID,CompanyID)
+VALUES ('301', 'Washing Machine', '2 years', 400.00, 450.00, 500.00, 10, 1,1),
+       ('302', 'Refrigerator', '3 years', 300.00, 350.00, 400.00, 5, 2,2);
 
 -- Insert demo values into Transactions
-INSERT INTO Transactions (Purchase_Date, Quantity_Bought, Total_Price, CompanyID)
-VALUES ('2024-05-10', 1, 500.00, 1),  -- Corrected CompanyID to match existing data
-       ('2024-05-12', 2, 800.00, 2);  -- Corrected CompanyID to match existing data
+INSERT INTO Transactions (Purchase_Date,Amount,Quantity_Bought, Total_Price, CompanyID)
+VALUES ('2024-05-10',21.4, 1, 500.00, 1),  -- Corrected CompanyID to match existing data
+       ('2024-05-12',98.3, 2, 800.00, 2);  -- Corrected CompanyID to match existing data
 
 -- Insert demo values into Payments
 INSERT INTO Payments (DateOfPayment, Amount, PaymentMethod, CustomerID)
@@ -195,3 +197,4 @@ SELECT * FROM Credit;
 SELECT * FROM Cash;
 SELECT * FROM EmployeeStorageAccess;
 SELECT * FROM EmployeeAppliancesCustomersTransactions;
+

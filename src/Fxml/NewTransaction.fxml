@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="504.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NewTransactionController">
    <children>
       <AnchorPane layoutX="12.0" layoutY="7.0" prefHeight="88.0" prefWidth="567.0" style="-fx-background-color: #910018;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -51,7 +50,7 @@
                   <Insets left="28.0" top="20.0" />
                </HBox.margin>
                <image>
-                  <Image url="@../icon/Monthly%20Days%20Worked.png" />
+                  <Image url="@../icon/MonthlyDaysWorked.png" />
                </image>
             </ImageView>
             <TextField fx:id="txtPurchaseDate" prefHeight="35.0" prefWidth="182.0" promptText="Purchase Date" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
@@ -67,7 +66,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox layoutX="73.0" layoutY="214.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
+      <HBox layoutX="80.0" layoutY="216.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
          <children>
             <ImageView fitHeight="38.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
@@ -145,11 +144,11 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <ComboBox fx:id="ComboxCompany" layoutX="235.0" layoutY="368.0" onAction="#ComboxCompany" prefHeight="35.0" prefWidth="174.0" promptText="Choose a Company" />
-      <Button fx:id="Insert" layoutX="191.0" layoutY="430.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert" textFill="#910018">
+      <Button fx:id="Insert" layoutX="191.0" layoutY="430.0" mnemonicParsing="false" onAction="#addTransaction" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert" textFill="#910018">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
+      <ComboBox fx:id="comboCompany" editable="true" layoutX="229.0" layoutY="367.0" onAction="#handlecomboCompany" prefHeight="38.0" prefWidth="200.0" promptText="Choose Company " style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;" />
    </children>
 </AnchorPane>

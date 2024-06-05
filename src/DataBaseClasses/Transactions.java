@@ -5,17 +5,21 @@ import java.util.Date;
 public class Transactions {
     private int transactionID;
     private Date purchaseDate;
+    private double amount;
     private int quantityBought;
-    private float totalPrice;
+    private double totalPrice;
     private int companyID;
+    private String companyName;
+    private String model;
 
     public Transactions() {
         super();
     }
 
-    public Transactions(int transactionID, Date purchaseDate, int quantityBought, float totalPrice, int companyID) {
+    public Transactions(int transactionID, Date purchaseDate, double amount, int quantityBought, double totalPrice, int companyID) {
         this.transactionID = transactionID;
         this.purchaseDate = purchaseDate;
+        this.amount = amount;
         this.quantityBought = quantityBought;
         this.totalPrice = totalPrice;
         this.companyID = companyID;
@@ -45,11 +49,11 @@ public class Transactions {
         this.quantityBought = quantityBought;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -60,5 +64,28 @@ public class Transactions {
     public void setCompanyID(int companyID) {
         this.companyID = companyID;
     }
-}
 
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+}
