@@ -10,7 +10,7 @@ public class Transactions {
     private double totalPrice;
     private int companyID;
     private String companyName;
-    private String model;
+    private String AppliancesModel;
 
     public Transactions() {
         super();
@@ -81,11 +81,11 @@ public class Transactions {
         this.companyName = companyName;
     }
 
-    public String getModel() {
-        return model;
+    public String getAppliancesModel() {
+        return AppliancesModel;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setAppliancesModel(String AppliancesModel) {
+        this.AppliancesModel = AppliancesModel;
     }
 }

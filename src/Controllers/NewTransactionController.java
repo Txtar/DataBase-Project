@@ -1,8 +1,8 @@
 package Controllers;
 
+import DataBaseClasses.Transactions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import DataBaseClasses.Transactions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,13 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class NewTransactionController implements Initializable {
@@ -33,6 +27,9 @@ public class NewTransactionController implements Initializable {
 
     @FXML
     private TextField txtID;
+
+    @FXML
+    private TextField txtModel;
 
     @FXML
     private TextField txtPurchaseDate;
@@ -59,23 +56,22 @@ public class NewTransactionController implements Initializable {
             }
             comboCompany.setItems(companyList);
         } catch (SQLException e) {
-            Message.displayMassage("Error: " , e.getMessage());
+            Message.displayMassage("Error: ", e.getMessage());
         }
     }
 
     @FXML
     void addTransaction(ActionEvent event) {
         try {
-            // Validate input
             int transactionID = Integer.parseInt(txtID.getText());
             String purchaseDate = txtPurchaseDate.getText();
             double amount = Double.parseDouble(txtAmount.getText());
             double totalPrice = Double.parseDouble(txtTotalPrice.getText());
             int quantity = Integer.parseInt(txtQuantity.getText());
             String companyName = comboCompany.getValue();
+            String model = txtModel.getText();
 
             int companyID = getCompanyIDByName(companyName);
-
 
             boolean transactionExists = checkIfTransactionExists(transactionID);
 
@@ -92,23 +88,30 @@ public class NewTransactionController implements Initializable {
                     pstmt.executeUpdate();
                     Message.displayMassage("Success", "Transaction updated successfully!");
                 } catch (SQLException e) {
-                    Message.displayMassage("Error: " , e.getMessage());
+                    Message.displayMassage("Error: ", e.getMessage());
                 }
             } else {
-                // Insert new transaction
                 String insertQuery = "INSERT INTO Transactions (Transaction_ID, Purchase_Date, Amount, Quantity_Bought, Total_Price, CompanyID) VALUES (?, ?, ?, ?, ?, ?)";
                 try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
                     pstmt.setInt(1, transactionID);
-                    pstmt.setString(2, purchaseDate.toString());
+                    pstmt.setString(2, purchaseDate);
                     pstmt.setDouble(3, amount);
                     pstmt.setInt(4, quantity);
                     pstmt.setDouble(5, totalPrice);
                     pstmt.setInt(6, companyID);
 
                     pstmt.executeUpdate();
-                    Message.displayMassage("Success", "Transaction added successfully!");
+
+                    String insertModelQuery = "INSERT INTO Appliances (ModelNumber, ApplianceName, CompanyID) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE ApplianceName = VALUES(ApplianceName), CompanyID = VALUES(CompanyID)";
+                    try (PreparedStatement pstmtModel = conn.prepareStatement(insertModelQuery)) {
+                        pstmtModel.setString(1, model);
+                        pstmtModel.setString(2, model); // Assuming ApplianceName is the same as the model
+                        pstmtModel.setInt(3, companyID);
+                        pstmtModel.executeUpdate();
+                    }
+                    Message.displayMassage("Success", "Transaction and model added successfully!");
                 } catch (SQLException e) {
-                    Message.displayMassage("Error: " , e.getMessage());
+                    Message.displayMassage("Error: ", e.getMessage());
                 }
             }
         } catch (NumberFormatException e) {
@@ -123,7 +126,7 @@ public class NewTransactionController implements Initializable {
             ResultSet rs = pstmt.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            Message.displayMassage("Error: " , e.getMessage());
+            Message.displayMassage("Error: ", e.getMessage());
         }
         return false;
     }
@@ -137,7 +140,7 @@ public class NewTransactionController implements Initializable {
                 return rs.getInt("CompanyID");
             }
         } catch (SQLException e) {
-            Message.displayMassage("Error: " , e.getMessage());
+            Message.displayMassage("Error: ", e.getMessage());
         }
         return -1;
     }
@@ -156,5 +159,6 @@ public class NewTransactionController implements Initializable {
         txtTotalPrice.setText(String.valueOf(transaction.getTotalPrice()));
         txtQuantity.setText(String.valueOf(transaction.getQuantityBought()));
         comboCompany.setValue(transaction.getCompanyName());
+        txtModel.setText(transaction.getAppliancesModel());
     }
 }

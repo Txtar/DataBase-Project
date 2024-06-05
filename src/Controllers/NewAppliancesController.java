@@ -106,7 +106,6 @@ public class NewAppliancesController implements Initializable {
         }
 
         if (applianceToUpdate == null) {
-            // Insert new appliance
             String insertQuery = "INSERT INTO Appliances (ModelNumber, ApplianceName, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID, CompanyID, WarranteeForPeriodOfTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
