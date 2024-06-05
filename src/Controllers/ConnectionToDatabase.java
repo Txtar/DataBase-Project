@@ -16,9 +16,9 @@ public final class  ConnectionToDatabase {
     public ConnectionToDatabase() {
         this.URl = "127.0.0.1";
         this.port = "3306";
-        this.spName = "TechnicalCenter";
+        this.spName = "technicalcenter";
         this.spUsername = "root";
-        this.spPassword = "15987533578951";
+        this.spPassword = "212rr735";
     }
     public Connection connectToDB() {
         try {
