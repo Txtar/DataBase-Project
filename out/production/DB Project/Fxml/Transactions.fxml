@@ -67,13 +67,13 @@
       </Button>
       <TableView fx:id="tableTransactions" layoutY="193.0" prefHeight="342.0" prefWidth="1049.0">
          <columns>
-            <TableColumn fx:id="TransactionIDColumn" text="Transaction ID"/>
-            <TableColumn fx:id="PurchaseDateColumn" text="Purchase Date"/>
-            <TableColumn fx:id="ApplianceModelColumn" text="Appliance Model"/>
-            <TableColumn fx:id="QuantityBoughtColumn" text="Quantity Bought"/>
-            <TableColumn fx:id="TotalPriceColumn" text="Total Price"/>
-            <TableColumn fx:id="TransactionAmountColumn" text="Transaction Amount"/>
-            <TableColumn fx:id="CompanyColumn" text="Company"/>
+            <TableColumn fx:id="TransactionIDColumn" prefWidth="111.20000916719437" text="Transaction ID" />
+            <TableColumn fx:id="PurchaseDateColumn" prefWidth="105.60000610351562" text="Purchase Date" />
+            <TableColumn fx:id="ApplianceModelColumn" prefWidth="112.00001525878906" text="Appliance Model" />
+            <TableColumn fx:id="QuantityBoughtColumn" minWidth="0.0" prefWidth="114.4000244140625" text="Quantity Bought" />
+            <TableColumn fx:id="TotalPriceColumn" minWidth="8.0" prefWidth="94.4000244140625" text="Total Price" />
+            <TableColumn fx:id="TransactionAmountColumn" prefWidth="137.5999755859375" text="Transaction Amount" />
+            <TableColumn fx:id="CompanyColumn" prefWidth="107.19989013671875" text="Company" />
          </columns>
       </TableView>
       <Button fx:id="DeleteTransaction" layoutX="861.0" layoutY="123.0" mnemonicParsing="false" onAction="#DeleteTransaction" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Delete Transaction" textFill="#830707">

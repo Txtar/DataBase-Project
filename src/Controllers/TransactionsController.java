@@ -48,6 +48,9 @@ public class TransactionsController implements Initializable {
     private TableColumn<Transactions, String> CompanyColumn;
 
     @FXML
+    private TableColumn<Transactions, String> ApplianceModelColumn;
+
+    @FXML
     private Button DeleteTransaction;
 
     @FXML
@@ -75,12 +78,16 @@ public class TransactionsController implements Initializable {
         TotalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         TransactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         CompanyColumn.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        ApplianceModelColumn.setCellValueFactory(new PropertyValueFactory<>("appliancesModel"));
 
         loadTransactionsData();
     }
 
     private void loadTransactionsData() {
-        String query = "SELECT t.*, c.CompanyName FROM Transactions t JOIN Company c ON t.CompanyID = c.CompanyID";
+        String query = "SELECT t.*, c.CompanyName, a.ApplianceName AS AppliancesModel FROM Transactions t " +
+                "JOIN Company c ON t.CompanyID = c.CompanyID " +
+                "LEFT JOIN EmployeeAppliancesCustomersTransactions eact ON t.Transaction_ID = eact.employeeID " +
+                "LEFT JOIN Appliances a ON eact.ModelNumber = a.ModelNumber";
 
         try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             transactionsList.clear();
@@ -94,6 +101,7 @@ public class TransactionsController implements Initializable {
                         rs.getInt("CompanyID")
                 );
                 transaction.setCompanyName(rs.getString("CompanyName"));
+                transaction.setAppliancesModel(rs.getString("AppliancesModel") == null ? "Unknown Model" : rs.getString("AppliancesModel"));
                 transactionsList.add(transaction);
             }
             tableTransactions.setItems(transactionsList);
@@ -171,7 +179,11 @@ public class TransactionsController implements Initializable {
             return;
         }
 
-        String query = "SELECT t.*, c.CompanyName FROM Transactions t JOIN Company c ON t.CompanyID = c.CompanyID WHERE t.Transaction_ID LIKE '%" + search + "%'";
+        String query = "SELECT t.*, c.CompanyName, a.ApplianceName AS AppliancesModel FROM Transactions t " +
+                "JOIN Company c ON t.CompanyID = c.CompanyID " +
+                "LEFT JOIN EmployeeAppliancesCustomersTransactions eact ON t.Transaction_ID = eact.employeeID " +
+                "LEFT JOIN Appliances a ON eact.ModelNumber = a.ModelNumber " +
+                "WHERE t.Transaction_ID LIKE '%" + search + "%'";
 
         try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             transactionsList.clear();
@@ -185,6 +197,7 @@ public class TransactionsController implements Initializable {
                         rs.getInt("CompanyID")
                 );
                 transaction.setCompanyName(rs.getString("CompanyName"));
+                transaction.setAppliancesModel(rs.getString("AppliancesModel") == null ? "Unknown Model" : rs.getString("AppliancesModel"));
                 transactionsList.add(transaction);
             }
             tableTransactions.setItems(transactionsList);
