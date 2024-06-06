@@ -1,6 +1,5 @@
 package Controllers;
 
-import DataBaseClasses.Appliances;
 import DataBaseClasses.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,11 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class NewStorageController implements Initializable {
@@ -38,10 +40,10 @@ public class NewStorageController implements Initializable {
     }
 
     private void loadStorageIDs() {
-        String query = "SELECT storageID FROM Storage";
+        String query = "SELECT StorageID FROM Storage";
         try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                storageIDList.add(rs.getInt("storageID"));
+                storageIDList.add(rs.getInt("StorageID"));
             }
         } catch (SQLException e) {
             Message.displayMassage("Error: ", e.getMessage());
@@ -49,64 +51,61 @@ public class NewStorageController implements Initializable {
     }
 
     private void loadStorageLocations() {
-        String query = "SELECT storageLocation FROM Storage";
+        String query = "SELECT StorageLocation FROM Storage";
         try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                storageLocationList.add(rs.getString("storageLocation"));
+                storageLocationList.add(rs.getString("StorageLocation"));
             }
         } catch (SQLException e) {
             Message.displayMassage("Error: ", e.getMessage());
         }
     }
 
-
     public void loadStorageData(Storage storage) {
-    // Set the text of the txtStorageID and txtStorageLocation fields
-    txtStorageID.setText(String.valueOf(storage.getStorageID()));
-    txtStorageLocation.setText(storage.getStorageLocation());
-}
-
-
+        this.storageToUpdate = storage;
+        txtStorageID.setText(String.valueOf(storage.getStorageID()));
+        txtStorageLocation.setText(storage.getStorageLocation());
+    }
 
     @FXML
-   public void btHandleAddNewStorage(ActionEvent event) {
+    public void btHandleAddNewStorage(ActionEvent event) {
+        int storageID;
+        try {
+            storageID = Integer.parseInt(txtStorageID.getText());
+        } catch (NumberFormatException e) {
+            Message.displayMassage("Error", "Please enter a valid Storage ID.");
+            return;
+        }
 
-        int StorageID = txtStorageID.anchorProperty().getValue();
-        String StorageLocation = txtStorageLocation.getText();
+        String storageLocation = txtStorageLocation.getText();
 
+        if (storageLocation.isEmpty()) {
+            Message.displayMassage("Error", "Please enter a Storage Location.");
+            return;
+        }
 
         if (storageToUpdate == null) {
-            // Insert new appliance
+            // Insert new storage
             String insertQuery = "INSERT INTO Storage (StorageID, StorageLocation) VALUES (?, ?)";
-
             try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
-                pstmt.setInt(1,StorageID);
-                pstmt.setString(2, StorageLocation);
-
+                pstmt.setInt(1, storageID);
+                pstmt.setString(2, storageLocation);
                 pstmt.executeUpdate();
-                Message.displayMassage("success", "New Storage added successfully!");
-
+                Message.displayMassage("Success", "New Storage added successfully!");
             } catch (SQLException e) {
                 Message.displayMassage("Error: ", e.getMessage());
             }
         } else {
-            String updateQuery = "UPDATE Storage SET StorageID = ?, StorageLocation = ?";
-
+            // Update existing storage
+            String updateQuery = "UPDATE Storage SET StorageLocation = ? WHERE StorageID = ?";
             try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
-                pstmt.setInt(1,StorageID);
-                pstmt.setString(2, StorageLocation);
-
+                pstmt.setString(1, storageLocation);
+                pstmt.setInt(2, storageID);
                 pstmt.executeUpdate();
-
-                Message.displayMassage("success", "Appliance updated successfully!");
-
+                Message.displayMassage("Success", "Storage updated successfully!");
             } catch (SQLException e) {
-                Message.displayMassage("Error", e.getMessage());
-
+                Message.displayMassage("Error: ", e.getMessage());
             }
         }
     }
-
-
-
 }
