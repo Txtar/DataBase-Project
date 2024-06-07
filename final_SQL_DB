@@ -35,7 +35,7 @@ CREATE TABLE Payments (
     Amount REAL,
     PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
     CustomerID INT,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Company table
@@ -58,8 +58,8 @@ CREATE TABLE Appliances (
     Quantity INT,
     StorageID INT,
     CompanyID Int,
-    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID),
-    FOREIGN KEY (StorageID) REFERENCES Storage(StorageID)
+    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (StorageID) REFERENCES Storage(StorageID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Transactions table
@@ -70,7 +70,7 @@ CREATE TABLE Transactions (
     Quantity_Bought INT,
     Total_Price REAL,
     CompanyID INT,
-    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID)
+    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create EmployeeStorageAccess table
@@ -78,8 +78,8 @@ CREATE TABLE EmployeeStorageAccess (
     employeeID INT,
     StorageID INT,
     PRIMARY KEY (employeeID, StorageID),
-    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
-    FOREIGN KEY (StorageID) REFERENCES Storage(storageID)
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (StorageID) REFERENCES Storage(storageID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create EmployeeAppliancesCustomersTransactions table
@@ -88,29 +88,29 @@ CREATE TABLE EmployeeAppliancesCustomersTransactions (
     ModelNumber VARCHAR(20),
     CustomerID INT,
     PRIMARY KEY (employeeID, ModelNumber, CustomerID),
-    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
-    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Installment table
 CREATE TABLE Installment (
     PaymentID INT PRIMARY KEY,
     InstallmentPeriod INT,
-    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Credit table
 CREATE TABLE Credit (
     PaymentID INT PRIMARY KEY,
     CreditCardNumber VARCHAR(20),
-    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Cash table
 CREATE TABLE Cash (
     PaymentID INT PRIMARY KEY,
-    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO Employee (employeeName, employeeSalary, employeePhoneNumber, employeeAddress, employeeMonthlyDaysWorked, employeeYearExperience)
@@ -178,7 +178,6 @@ VALUES (2);
 INSERT INTO EmployeeStorageAccess (employeeID, StorageID)
 VALUES (1, 1),
        (1, 2); 
-
 -- Insert demo values into EmployeeAppliancesCustomersTransactions
 INSERT INTO EmployeeAppliancesCustomersTransactions (employeeID, ModelNumber, CustomerID)
 VALUES (1, '301', 1),
@@ -197,4 +196,3 @@ SELECT * FROM Credit;
 SELECT * FROM Cash;
 SELECT * FROM EmployeeStorageAccess;
 SELECT * FROM EmployeeAppliancesCustomersTransactions;
-
