@@ -238,21 +238,18 @@ public class AppliancesController implements Initializable {
     private void loadComboData() {
         // Load data directly into combo boxes
         ObservableList<String> applianceNames = FXCollections.observableArrayList(
-                "NULL",
                 "Washing Machine",
                 "Refrigerator"
         );
         CombApplianceName.setItems(applianceNames);
 
         ObservableList<String> companyNames = FXCollections.observableArrayList(
-                "NULL",
                 "Tech Corp",
                 "Home Goods Inc."
         );
         CombCompanyName.setItems(companyNames);
 
         ObservableList<String> storageLocations = FXCollections.observableArrayList(
-                "NULL",
                 "Warehouse A",
                 "Warehouse B"
         );
