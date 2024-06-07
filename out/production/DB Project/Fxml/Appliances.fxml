@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,9 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="677.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppliancesController">
+<AnchorPane prefHeight="677.0" prefWidth="1086.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppliancesController">
    <children>
-      <TableView fx:id="tableProducts" editable="true" layoutX="19.0" layoutY="229.0" prefHeight="423.0" prefWidth="939.0" styleClass="table" stylesheets="@../Style/Style.css">
+      <TableView fx:id="tableProducts" editable="true" layoutX="7.0" layoutY="229.0" prefHeight="423.0" prefWidth="1075.0" styleClass="table" stylesheets="@../Style/Style.css" AnchorPane.rightAnchor="4.0">
          <columns>
             <TableColumn fx:id="cmModelNumber" editable="false" prefWidth="124.0" sortable="false" text="Model Number" />
             <TableColumn fx:id="cmName" editable="false" prefWidth="113.0" sortable="false" text="Name" />
@@ -24,26 +25,27 @@
             <TableColumn fx:id="cmSellingPrice" editable="false" prefWidth="127.0" sortable="false" text="Selling Price" />
             <TableColumn fx:id="cmQuantity" editable="false" prefWidth="110.0" sortable="false" text="Quantity" />
             <TableColumn fx:id="cmWarrantee" editable="false" prefWidth="108.0" sortable="false" text="Warrantee " />
-            <TableColumn fx:id="cmCompanyID" editable="false" prefWidth="154.0" sortable="false" text="Company ID" />
+            <TableColumn fx:id="cmCompanyName" editable="false" prefWidth="137.0" sortable="false" text="Storage Location" />
+            <TableColumn fx:id="cmStorageLocation" prefWidth="140.0" text="Company Name" />
          </columns>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </TableView>
-      <Pane prefHeight="116.0" prefWidth="993.0" style="-fx-background-color: #910018;">
+      <Pane prefHeight="116.0" prefWidth="993.0" style="-fx-background-color: #910018;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="103.0" fitWidth="136.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/Appliances.png" />
                </image>
             </ImageView>
-            <Label layoutX="216.0" layoutY="22.0" prefHeight="60.0" prefWidth="472.0" text="Technical Center Appliances" textFill="WHITE">
+            <Label layoutX="307.0" layoutY="28.0" prefHeight="60.0" prefWidth="472.0" text="Technical Center Appliances" textFill="WHITE">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
          </children></Pane>
-      <Button layoutX="777.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleBtAddNewAppliances" prefHeight="32.0" prefWidth="180.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Add New Appliances" />
+      <Button layoutX="525.0" layoutY="136.0" mnemonicParsing="false" onAction="#handleBtAddNewAppliances" prefHeight="32.0" prefWidth="180.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Add New Appliances" />
       <HBox alignment="CENTER" layoutX="19.0" layoutY="147.0" prefHeight="51.0" prefWidth="323.0" spacing="12.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #ffffff;" text="Search">
@@ -86,8 +88,24 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Button layoutX="777.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleBtUpdate" prefHeight="37.0" prefWidth="180.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Update Appliances" />
-      <Button layoutX="373.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="37.0" prefWidth="130.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
-      <Button layoutX="551.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleBtDeleteAppliances" prefHeight="32.0" prefWidth="180.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Delete Appliances" />
+      <Button layoutX="903.0" layoutY="136.0" mnemonicParsing="false" onAction="#handleBtUpdate" prefHeight="37.0" prefWidth="180.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Update Appliances" />
+      <Button layoutX="373.0" layoutY="136.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="37.0" prefWidth="130.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
+      <Button layoutX="715.0" layoutY="136.0" mnemonicParsing="false" onAction="#handleBtDeleteAppliances" prefHeight="32.0" prefWidth="180.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Delete Appliances" />
+      <ComboBox fx:id="CombApplianceName" layoutX="525.0" layoutY="180.0" onAction="#HandleCombApplianceName" prefHeight="37.0" prefWidth="180.0" promptText="Appliance Name" />
+      <ComboBox fx:id="combStorageLocation" layoutX="903.0" layoutY="180.0" onAction="#HandleCombStorageName" prefHeight="37.0" prefWidth="180.0" promptText="Storage Location" />
+      <ComboBox fx:id="CombCompanyName" layoutX="715.0" layoutY="180.0" onAction="#HandleCombCompanyName" prefHeight="37.0" prefWidth="180.0" promptText="Company Name" />
+      <Button fx:id="btSearch1" layoutX="394.0" layoutY="182.0" mnemonicParsing="false" onAction="#handleBtSearch1" prefHeight="34.0" prefWidth="88.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
+         <graphic>
+            <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

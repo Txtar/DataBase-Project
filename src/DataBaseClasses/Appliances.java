@@ -10,8 +10,10 @@ public class Appliances {
     private int quantity;
     private int storageID;
     private int companyID;
+    private String storageLocation;
+    private String companyName;
 
-    public Appliances(String modelNumber, String applianceName, String warranteeForPeriodOfTime, double buyingPrice, double offerPrice, double sellingPrice, int quantity, int storageID, int companyID) {
+    public Appliances(String modelNumber, String applianceName, String warranteeForPeriodOfTime, double buyingPrice, double offerPrice, double sellingPrice, int quantity, String storageLocation, String companyName) {
         this.modelNumber = modelNumber;
         this.applianceName = applianceName;
         this.warranteeForPeriodOfTime = warranteeForPeriodOfTime;
@@ -21,6 +23,8 @@ public class Appliances {
         this.quantity = quantity;
         this.storageID = storageID;
         this.companyID = companyID;
+        this.storageLocation = storageLocation;
+        this.companyName = companyName;
     }
 
     public String getModelNumber() {
@@ -93,5 +97,21 @@ public class Appliances {
 
     public void setCompanyID(int companyID) {
         this.companyID = companyID;
+    }
+
+    public String getStorageLocation() {
+        return storageLocation;
+    }
+
+    public void setStorageLocation(String storageLocation) {
+        this.storageLocation = storageLocation;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
