@@ -179,11 +179,16 @@ public class TransactionsController implements Initializable {
             return;
         }
 
-        String query = "SELECT t.*, c.CompanyName, a.ApplianceName AS AppliancesModel FROM Transactions t " +
-                "JOIN Company c ON t.CompanyID = c.CompanyID " +
-                "LEFT JOIN EmployeeAppliancesCustomersTransactions eact ON t.Transaction_ID = eact.employeeID " +
-                "LEFT JOIN Appliances a ON eact.ModelNumber = a.ModelNumber " +
-                "WHERE t.Transaction_ID LIKE '%" + search + "%'";
+        String query = "SELECT t.*, " +
+                       "(SELECT c.CompanyName FROM Company c WHERE c.CompanyID = t.CompanyID) AS CompanyName, " +
+                       "(SELECT a.ApplianceName FROM Appliances a WHERE a.ModelNumber IN " +
+                       "(SELECT eact.ModelNumber FROM EmployeeAppliancesCustomersTransactions eact WHERE eact.CustomerID IN " +
+                       "(SELECT cu.CustomerID FROM Customers cu WHERE EXISTS " +
+                       "(SELECT 1 FROM Transactions tr WHERE tr.Transaction_ID = t.Transaction_ID AND eact.CustomerID = cu.CustomerID)))) AS AppliancesModel " +
+                       "FROM Transactions t " +
+                       "WHERE t.Transaction_ID LIKE '%" + search + "%'";
+
+
 
         try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             transactionsList.clear();
