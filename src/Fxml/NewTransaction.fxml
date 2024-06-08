@@ -37,7 +37,7 @@
                   <Image url="@../icon/ID.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtID" prefHeight="35.0" prefWidth="162.0" promptText="ID" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+            <TextField fx:id="txtID" prefHeight="35.0" prefWidth="152.0" promptText="ID" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
                <HBox.margin>
                   <Insets left="15.0" right="15.0" top="15.0" />
                </HBox.margin>
@@ -66,89 +66,56 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox layoutX="80.0" layoutY="216.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
-         <children>
-            <ImageView fitHeight="38.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="15.0" top="20.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../icon/Payment.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="txtAmount" prefHeight="35.0" prefWidth="162.0" promptText="Amount" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
-               <HBox.margin>
-                  <Insets left="15.0" right="15.0" top="15.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="28.0" top="20.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../icon/Price.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="txtTotalPrice" prefHeight="35.0" prefWidth="182.0" promptText="Total Price" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
-               <HBox.margin>
-                  <Insets left="15.0" top="15.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </HBox>
-      <HBox layoutX="73.0" layoutY="293.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
-         <children>
-            <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="15.0" top="20.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../icon/appliance.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="txtModel" prefHeight="35.0" prefWidth="162.0" promptText="Model" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
-               <HBox.margin>
-                  <Insets left="15.0" right="15.0" top="15.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="28.0" top="20.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../icon/coin.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="txtQuantity" prefHeight="35.0" prefWidth="182.0" promptText="Quantity" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
-               <HBox.margin>
-                  <Insets left="15.0" top="15.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </HBox>
       <Button fx:id="Insert" layoutX="191.0" layoutY="430.0" mnemonicParsing="false" onAction="#addTransaction" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert" textFill="#910018">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
       <ComboBox fx:id="comboCompany" editable="true" layoutX="229.0" layoutY="367.0" onAction="#handlecomboCompany" prefHeight="38.0" prefWidth="200.0" promptText="Choose Company " style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;" />
+      <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="87.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/Payment.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtAmount" layoutX="140.0" layoutY="226.0" prefHeight="35.0" prefWidth="152.0" promptText="Amount" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtTotalPrice" layoutX="392.0" layoutY="226.0" prefHeight="35.0" prefWidth="182.0" promptText="Total Price" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="342.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/Price.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtQuantity" layoutX="392.0" layoutY="306.0" prefHeight="35.0" prefWidth="182.0" promptText="Quantity" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="342.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/coin.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtModel" layoutX="140.0" layoutY="306.0" prefHeight="35.0" prefWidth="152.0" promptText="Model" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="89.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/appliance.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="180.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/Company.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
