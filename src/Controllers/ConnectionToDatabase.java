@@ -17,12 +17,12 @@ public final class ConnectionToDatabase {
         this.URl = "127.0.0.1";
         this.port = "3306";
         this.spName = "technicalcenter";
+        this.spUsername = "root";
+        this.spPassword = "15987533578951";
+
     }
 
-    public void setCredentials(String username, String password) {
-        this.spUsername = username;
-        this.spPassword = password;
-    }
+
     public Connection connectToDB() {
         try {
             spURL = "jdbc:mysql://" + this.URl + ":" + this.port + "/" + this.spName + "?verifyServerCertificate=false";

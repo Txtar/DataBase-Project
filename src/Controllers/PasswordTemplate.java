@@ -31,17 +31,15 @@ public class PasswordTemplate {
         String username = UsernameEntry.getText();
         String password = PasswordEntry.getText();
 
-        passwordUser = new PasswordUser(username, password);
 
         attemptDatabaseConnection();
     }
 
     private void attemptDatabaseConnection() {
-        ConnectionToDatabase connectionToDatabase = new ConnectionToDatabase();
+        PasswordUser passwordUser   = new PasswordUser();
+        passwordUser.setCredentials(UsernameEntry.getText(), PasswordEntry.getText());
 
-        connectionToDatabase.setCredentials(passwordUser.getUsername(), passwordUser.getPassword());
-
-        Connection connection = connectionToDatabase.connectToDB();
+        Connection connection = passwordUser.connectToDB();
 
         if (connection != null) {
             try {
