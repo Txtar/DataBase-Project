@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -22,6 +23,8 @@ public class NewAppliancesController implements Initializable {
 
     @FXML
     private Button btAddNewAppliances;
+
+
 
     @FXML
     private ComboBox<Integer> comboCompanyID;
@@ -130,6 +133,7 @@ public class NewAppliancesController implements Initializable {
 
                     pstmt.executeUpdate();
                     Message.displayMassage("success", "New appliance added successfully!");
+                    closeWindow();
 
                 } catch (SQLException e) {
                     Message.displayMassage("Error: ", e.getMessage());
@@ -199,5 +203,10 @@ public class NewAppliancesController implements Initializable {
         txtWarrantee.setText(appliance.getWarranteeForPeriodOfTime());
         comboStorgeId.setValue(appliance.getStorageID());
         comboCompanyID.setValue(appliance.getCompanyID());
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) btAddNewAppliances.getScene().getWindow();
+        stage.close();
     }
 }

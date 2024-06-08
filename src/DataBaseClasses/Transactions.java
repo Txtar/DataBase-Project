@@ -16,13 +16,15 @@ public class Transactions {
         super();
     }
 
-    public Transactions(int transactionID, Date purchaseDate, double amount, int quantityBought, double totalPrice, int companyID) {
+    public Transactions(int transactionID, Date purchaseDate, double amount, int quantityBought, double totalPrice, int companyID,String companyName,String AppliancesModel) {
         this.transactionID = transactionID;
         this.purchaseDate = purchaseDate;
         this.amount = amount;
         this.quantityBought = quantityBought;
         this.totalPrice = totalPrice;
         this.companyID = companyID;
+        this.companyName=companyName;
+        this.AppliancesModel = AppliancesModel;
     }
 
     public int getTransactionID() {
