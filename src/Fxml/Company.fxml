@@ -49,7 +49,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="insertNewCompany" layoutX="948.0" layoutY="135.0" mnemonicParsing="false" onAction="#insertNewComapny" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert New Company" textFill="#830707">
+      <Button fx:id="insertNewCompany" layoutX="948.0" layoutY="135.0" mnemonicParsing="false" onAction="#insertNewCompany" prefHeight="48.0" prefWidth="179.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert New Company" textFill="#830707">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -73,9 +73,9 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableEmployee" layoutX="43.0" layoutY="209.0" prefHeight="446.0" prefWidth="1084.0" styleClass="table" stylesheets="@../Style/Style.css">
+      <TableView fx:id="tableCompanies" layoutX="43.0" layoutY="209.0" prefHeight="446.0" prefWidth="1084.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
-            <TableColumn fx:id="cmCompanyId" editable="false" prefWidth="159.0" sortable="false" text="Comapny ID" />
+            <TableColumn fx:id="cmCompanyId" editable="false" prefWidth="159.0" sortable="false" text="Comapany ID" />
             <TableColumn fx:id="cmCompanyName" editable="false" prefWidth="208.0" sortable="false" text="Company Name" />
             <TableColumn fx:id="cmPhoneNumber" editable="false" prefWidth="215.0" sortable="false" text="Phone Number" />
             <TableColumn fx:id="cmAddress" editable="false" prefWidth="158.0" sortable="false" text="Address" />

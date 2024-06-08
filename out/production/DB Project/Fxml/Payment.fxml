@@ -53,7 +53,7 @@
             </Button>
          </children>
       </HBox>
-      <Button fx:id="btRefresh" layoutX="330.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="48.0" prefWidth="130.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Refresh" textFill="#830707">
+      <Button fx:id="btRefresh" layoutX="342.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="48.0" prefWidth="130.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Refresh" textFill="#830707">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -87,7 +87,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TableView>
-      <Button fx:id="btDetails" layoutX="472.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleBtDetails" prefHeight="48.0" prefWidth="130.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Details" textFill="#830707">
+      <Button fx:id="btDetails" layoutX="484.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleBtDetails" prefHeight="48.0" prefWidth="130.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Details" textFill="#830707">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

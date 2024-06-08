@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -22,6 +23,8 @@ public class NewAppliancesController implements Initializable {
 
     @FXML
     private Button btAddNewAppliances;
+
+
 
     @FXML
     private ComboBox<Integer> comboCompanyID;
@@ -90,63 +93,76 @@ public class NewAppliancesController implements Initializable {
 
     @FXML
     void btHandleAddNewAppliances(ActionEvent event) {
-        String modelNumber = txtModelNumber.getText();
-        String applianceName = txtApplianceName.getText();
-        double buyingPrice = Double.parseDouble(txtBuyingPrice.getText());
-        double offerPrice = Double.parseDouble(txtOfferPrice.getText());
-        double sellingPrice = Double.parseDouble(txtSellingPrice.getText());
-        int quantity = Integer.parseInt(txtQuantity.getText());
-        int storageID = Integer.parseInt(String.valueOf(comboStorgeId.getValue()));
-        int companyID = Integer.parseInt(String.valueOf(comboCompanyID.getValue()));
-        String warrantee = txtWarrantee.getText();
 
-        if (comboStorgeId == null || comboCompanyID == null) {
-            Message.displayMassage("success","Storage ID or Company ID  is not selected!");
-            return;
-        }
+        if (!txtModelNumber.getText().isEmpty()
+                && !txtApplianceName.getText().isEmpty()
+                && !txtBuyingPrice.getText().isEmpty()
+                && !txtSellingPrice.getText().isEmpty()
+                && !txtOfferPrice.getText().isEmpty()
+                && !txtQuantity.getText().isEmpty()
+                && !txtWarrantee.getText().isEmpty()) {
+            String modelNumber = txtModelNumber.getText();
+            String applianceName = txtApplianceName.getText();
+            double buyingPrice = Double.parseDouble(txtBuyingPrice.getText());
+            double offerPrice = Double.parseDouble(txtOfferPrice.getText());
+            double sellingPrice = Double.parseDouble(txtSellingPrice.getText());
+            int quantity = Integer.parseInt(txtQuantity.getText());
+            int storageID = Integer.parseInt(String.valueOf(comboStorgeId.getValue()));
+            int companyID = Integer.parseInt(String.valueOf(comboCompanyID.getValue()));
+            String warrantee = txtWarrantee.getText();
 
-        if (applianceToUpdate == null) {
-            String insertQuery = "INSERT INTO Appliances (ModelNumber, ApplianceName, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID, CompanyID, WarranteeForPeriodOfTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
-                pstmt.setString(1, modelNumber);
-                pstmt.setString(2, applianceName);
-                pstmt.setDouble(3, buyingPrice);
-                pstmt.setDouble(4, offerPrice);
-                pstmt.setDouble(5, sellingPrice);
-                pstmt.setInt(6, quantity);
-                pstmt.setInt(7, storageID);
-                pstmt.setInt(8, companyID);
-                pstmt.setString(9, warrantee);
-
-                pstmt.executeUpdate();
-                Message.displayMassage("success", "New appliance added successfully!");
-
-            } catch (SQLException e) {
-                Message.displayMassage("Error: ", e.getMessage());
+            if (comboStorgeId == null || comboCompanyID == null) {
+                Message.displayMassage("success", "Storage ID or Company ID  is not selected!");
+                return;
             }
-        } else {
-            String updateQuery = "UPDATE Appliances SET ApplianceName = ?, BuyingPrice = ?, OfferPrice = ?, SellingPrice = ?, Quantity = ?, StorageID = ?, CompanyID = ?, WarranteeForPeriodOfTime = ? WHERE ModelNumber = ?";
 
-            try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
-                pstmt.setString(1, applianceName);
-                pstmt.setDouble(2, buyingPrice);
-                pstmt.setDouble(3, offerPrice);
-                pstmt.setDouble(4, sellingPrice);
-                pstmt.setInt(5, quantity);
-                pstmt.setInt(6, storageID);
-                pstmt.setInt(7, companyID);
-                pstmt.setString(8, warrantee);
-                pstmt.setString(9, modelNumber);
+            if (applianceToUpdate == null) {
+                String insertQuery = "INSERT INTO Appliances (ModelNumber, ApplianceName, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID, CompanyID, WarranteeForPeriodOfTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                pstmt.executeUpdate();
+                try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
+                    pstmt.setString(1, modelNumber);
+                    pstmt.setString(2, applianceName);
+                    pstmt.setDouble(3, buyingPrice);
+                    pstmt.setDouble(4, offerPrice);
+                    pstmt.setDouble(5, sellingPrice);
+                    pstmt.setInt(6, quantity);
+                    pstmt.setInt(7, storageID);
+                    pstmt.setInt(8, companyID);
+                    pstmt.setString(9, warrantee);
 
-                Message.displayMassage("success", "Appliance updated successfully!");
+                    pstmt.executeUpdate();
+                    Message.displayMassage("success", "New appliance added successfully!");
+                    closeWindow();
 
-            } catch (SQLException e) {
-                Message.displayMassage("Error", e.getMessage());
+                } catch (SQLException e) {
+                    Message.displayMassage("Error: ", e.getMessage());
+                }
+            } else {
+                String updateQuery = "UPDATE Appliances SET ApplianceName = ?, BuyingPrice = ?, OfferPrice = ?, SellingPrice = ?, Quantity = ?, StorageID = ?, CompanyID = ?, WarranteeForPeriodOfTime = ? WHERE ModelNumber = ?";
 
+                try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
+                    pstmt.setString(1, applianceName);
+                    pstmt.setDouble(2, buyingPrice);
+                    pstmt.setDouble(3, offerPrice);
+                    pstmt.setDouble(4, sellingPrice);
+                    pstmt.setInt(5, quantity);
+                    pstmt.setInt(6, storageID);
+                    pstmt.setInt(7, companyID);
+                    pstmt.setString(8, warrantee);
+                    pstmt.setString(9, modelNumber);
+
+                    pstmt.executeUpdate();
+
+                    Message.displayMassage("success", "Appliance updated successfully!");
+
+                } catch (SQLException e) {
+                    Message.displayMassage("Error", e.getMessage());
+
+                }
             }
+        } else{
+            Message.displayMassage("Error", "Please insert all required data.");
         }
     }
 
@@ -187,5 +203,10 @@ public class NewAppliancesController implements Initializable {
         txtWarrantee.setText(appliance.getWarranteeForPeriodOfTime());
         comboStorgeId.setValue(appliance.getStorageID());
         comboCompanyID.setValue(appliance.getCompanyID());
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) btAddNewAppliances.getScene().getWindow();
+        stage.close();
     }
 }

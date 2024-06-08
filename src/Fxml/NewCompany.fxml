@@ -87,7 +87,7 @@
                   <Insets left="30.0" top="13.0" />
                </HBox.margin>
             </ImageView>
-            <ComboBox fx:id="combAddress" editable="true" onAction="#handleCombAddress" prefHeight="27.0" prefWidth="183.0" promptText="Address" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
+            <ComboBox fx:id="comboAddress" editable="true" onAction="#comboAddress" prefHeight="27.0" prefWidth="183.0" promptText="Address" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #910018; -fx-background-color: #ffffff;">
                <HBox.margin>
                   <Insets left="20.0" top="15.0" />
                </HBox.margin>
