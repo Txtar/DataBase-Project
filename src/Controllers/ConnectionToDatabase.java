@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public final class  ConnectionToDatabase {
+public final class ConnectionToDatabase {
     private String spURL;
-    private final String spUsername;
-    private final String spPassword;
+    private String spUsername;
+    private String spPassword;
     private final String URl;
     private final String port;
     private final String spName;
@@ -17,8 +17,11 @@ public final class  ConnectionToDatabase {
         this.URl = "127.0.0.1";
         this.port = "3306";
         this.spName = "technicalcenter";
-        this.spUsername = "root";
-        this.spPassword = "15987533578951";
+    }
+
+    public void setCredentials(String username, String password) {
+        this.spUsername = username;
+        this.spPassword = password;
     }
     public Connection connectToDB() {
         try {
@@ -26,11 +29,10 @@ public final class  ConnectionToDatabase {
             Properties properties = new Properties();
             properties.setProperty("user", spUsername);
             properties.setProperty("password", spPassword);
-            properties.setProperty("useSSl", "false");
+            properties.setProperty("useSSL", "false");
             properties.setProperty("autoReconnect", "true");
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(spURL, properties);
-
         } catch (ClassNotFoundException | SQLException notFoundException) {
             System.out.println(notFoundException.getMessage());
             return null;

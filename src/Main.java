@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Fxml/Main.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Fxml/PasswordTemplate.fxml")));
         primaryStage.setTitle("Welcome");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
