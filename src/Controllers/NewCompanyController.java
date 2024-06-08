@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -80,6 +81,7 @@ public class NewCompanyController implements Initializable {
 
                     pstmt.executeUpdate();
                     Message.displayMassage("Success", "New company added successfully!");
+                    closeWindow();
 
                 } catch (SQLException e) {
                     Message.displayMassage("Error: ", e.getMessage());
@@ -117,5 +119,9 @@ public class NewCompanyController implements Initializable {
         txtPhoneNumber.setText(company.getPhoneNumber());
         txtAccount.setText(company.getAccount());
         comboAddress.setValue(company.getAddress());
+    }
+    private void closeWindow() {
+        Stage stage = (Stage) addCompany.getScene().getWindow();
+        stage.close();
     }
 }

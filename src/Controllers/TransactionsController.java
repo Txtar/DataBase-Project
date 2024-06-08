@@ -84,12 +84,17 @@ public class TransactionsController implements Initializable {
     }
 
     private void loadTransactionsData() {
-        String query = "SELECT t.*, c.CompanyName, a.ApplianceName AS AppliancesModel FROM Transactions t " +
-                "JOIN Company c ON t.CompanyID = c.CompanyID " +
-                "LEFT JOIN EmployeeAppliancesCustomersTransactions eact ON t.Transaction_ID = eact.employeeID " +
-                "LEFT JOIN Appliances a ON eact.ModelNumber = a.ModelNumber";
+        String query = "SELECT t.Transaction_ID, t.Purchase_Date, t.Quantity_Bought, t.Total_Price, t.Amount, t.CompanyID, " +
+                "(SELECT c.CompanyName FROM Company c WHERE c.CompanyID = t.CompanyID) AS CompanyName, " +
+                "(SELECT COALESCE(a.ModelNumber, 'Unknown Model') FROM Appliances a WHERE a.ModelNumber = " +
+                "(SELECT eact.ModelNumber FROM EmployeeAppliancesCustomersTransactions eact WHERE eact.employeeID = t.Transaction_ID LIMIT 1)) AS AppliancesModel " +
+                "FROM Transactions t " +
+                "ORDER BY t.Transaction_ID";
 
-        try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
             transactionsList.clear();
             while (rs.next()) {
                 Transactions transaction = new Transactions(
@@ -98,17 +103,19 @@ public class TransactionsController implements Initializable {
                         rs.getDouble("Amount"),
                         rs.getInt("Quantity_Bought"),
                         rs.getDouble("Total_Price"),
-                        rs.getInt("CompanyID")
+                        rs.getInt("CompanyID"),
+                        rs.getString("CompanyName"),
+                        rs.getString("AppliancesModel") == null ? "Unknown Model" : rs.getString("AppliancesModel")
                 );
-                transaction.setCompanyName(rs.getString("CompanyName"));
-                transaction.setAppliancesModel(rs.getString("AppliancesModel") == null ? "Unknown Model" : rs.getString("AppliancesModel"));
                 transactionsList.add(transaction);
             }
             tableTransactions.setItems(transactionsList);
+
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            Message.displayMassage("Error: " , e.getMessage());
         }
     }
+
 
     @FXML
     void AddTransaction(ActionEvent event) {
@@ -179,16 +186,12 @@ public class TransactionsController implements Initializable {
             return;
         }
 
-        String query = "SELECT t.*, " +
-                       "(SELECT c.CompanyName FROM Company c WHERE c.CompanyID = t.CompanyID) AS CompanyName, " +
-                       "(SELECT a.ApplianceName FROM Appliances a WHERE a.ModelNumber IN " +
-                       "(SELECT eact.ModelNumber FROM EmployeeAppliancesCustomersTransactions eact WHERE eact.CustomerID IN " +
-                       "(SELECT cu.CustomerID FROM Customers cu WHERE EXISTS " +
-                       "(SELECT 1 FROM Transactions tr WHERE tr.Transaction_ID = t.Transaction_ID AND eact.CustomerID = cu.CustomerID)))) AS AppliancesModel " +
-                       "FROM Transactions t " +
-                       "WHERE t.Transaction_ID LIKE '%" + search + "%'";
-
-
+        String query = "SELECT t.Transaction_ID, t.Purchase_Date, t.Quantity_Bought, t.Total_Price, t.Amount, t.CompanyID, " +
+                "(SELECT c.CompanyName FROM Company c WHERE c.CompanyID = t.CompanyID) AS CompanyName, " +
+                "(SELECT IFNULL(a.ModelNumber, 'Unknown Model') FROM Appliances a WHERE a.ModelNumber = " +
+                "(SELECT eact.ModelNumber FROM EmployeeAppliancesCustomersTransactions eact WHERE eact.employeeID = t.Transaction_ID LIMIT 1)) AS AppliancesModel " +
+                "FROM Transactions t " +
+                "WHERE t.Transaction_ID = " + search;
 
         try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             transactionsList.clear();
@@ -199,15 +202,15 @@ public class TransactionsController implements Initializable {
                         rs.getDouble("Amount"),
                         rs.getInt("Quantity_Bought"),
                         rs.getDouble("Total_Price"),
-                        rs.getInt("CompanyID")
+                        rs.getInt("CompanyID"),
+                        rs.getString("CompanyName"),
+                        rs.getString("AppliancesModel")
                 );
-                transaction.setCompanyName(rs.getString("CompanyName"));
-                transaction.setAppliancesModel(rs.getString("AppliancesModel") == null ? "Unknown Model" : rs.getString("AppliancesModel"));
                 transactionsList.add(transaction);
             }
             tableTransactions.setItems(transactionsList);
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            Message.displayMassage("Error: " ,e.getMessage());
         }
     }
 }

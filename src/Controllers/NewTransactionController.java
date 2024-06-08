@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.*;
@@ -50,107 +51,151 @@ public class NewTransactionController implements Initializable {
 
     private void loadCompanyNames() {
         String query = "SELECT CompanyID, CompanyName FROM Company";
-        try (Connection conn = new ConnectionToDatabase().connectToDB(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 companyList.add(rs.getString("CompanyName"));
             }
             comboCompany.setItems(companyList);
         } catch (SQLException e) {
-            Message.displayMassage("Error: ", e.getMessage());
+            Message.displayMassage("Error", e.getMessage());
         }
     }
 
     @FXML
     void addTransaction(ActionEvent event) {
-        try {
-            int transactionID = Integer.parseInt(txtID.getText());
-            String purchaseDate = txtPurchaseDate.getText();
-            double amount = Double.parseDouble(txtAmount.getText());
-            double totalPrice = Double.parseDouble(txtTotalPrice.getText());
-            int quantity = Integer.parseInt(txtQuantity.getText());
-            String companyName = comboCompany.getValue();
-            String model = txtModel.getText();
+        if (validateFields()) {
+            try {
+                int transactionID = Integer.parseInt(txtID.getText());
+                String purchaseDate = txtPurchaseDate.getText();
+                double amount = Double.parseDouble(txtAmount.getText());
+                double totalPrice = Double.parseDouble(txtTotalPrice.getText());
+                int quantity = Integer.parseInt(txtQuantity.getText());
+                String companyName = comboCompany.getValue();
+                String model = txtModel.getText();
+                int companyID = getCompanyIDByName(companyName);
 
-            int companyID = getCompanyIDByName(companyName);
-
-            boolean transactionExists = checkIfTransactionExists(transactionID);
-
-            if (transactionExists) {
-                String updateQuery = "UPDATE Transactions SET Purchase_Date = ?, Amount = ?, Quantity_Bought = ?, Total_Price = ?, CompanyID = ? WHERE Transaction_ID = ?";
-                try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
-                    pstmt.setString(1, purchaseDate);
-                    pstmt.setDouble(2, amount);
-                    pstmt.setInt(3, quantity);
-                    pstmt.setDouble(4, totalPrice);
-                    pstmt.setInt(5, companyID);
-                    pstmt.setInt(6, transactionID);
-
-                    pstmt.executeUpdate();
-                    Message.displayMassage("Success", "Transaction updated successfully!");
-                } catch (SQLException e) {
-                    Message.displayMassage("Error: ", e.getMessage());
+                if (checkIfTransactionExists(transactionID)) {
+                    updateTransaction(transactionID, purchaseDate, amount, totalPrice, quantity, companyID, model);
+                } else {
+                    insertTransaction(transactionID, purchaseDate, amount, totalPrice, quantity, companyID, model);
                 }
-            } else {
-                String insertQuery = "INSERT INTO Transactions (Transaction_ID, Purchase_Date, Amount, Quantity_Bought, Total_Price, CompanyID) VALUES (?, ?, ?, ?, ?, ?)";
-                try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
-                    pstmt.setInt(1, transactionID);
-                    pstmt.setString(2, purchaseDate);
-                    pstmt.setDouble(3, amount);
-                    pstmt.setInt(4, quantity);
-                    pstmt.setDouble(5, totalPrice);
-                    pstmt.setInt(6, companyID);
 
-                    pstmt.executeUpdate();
-
-                    String insertModelQuery = "INSERT INTO Appliances (ModelNumber, ApplianceName, CompanyID) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE ApplianceName = VALUES(ApplianceName), CompanyID = VALUES(CompanyID)";
-                    try (PreparedStatement pstmtModel = conn.prepareStatement(insertModelQuery)) {
-                        pstmtModel.setString(1, model);
-                        pstmtModel.setString(2, model); // Assuming ApplianceName is the same as the model
-                        pstmtModel.setInt(3, companyID);
-                        pstmtModel.executeUpdate();
-                    }
-                    Message.displayMassage("Success", "Transaction and model added successfully!");
-                } catch (SQLException e) {
-                    Message.displayMassage("Error: ", e.getMessage());
-                }
+                closeWindow();
+            } catch (NumberFormatException e) {
+                Message.displayMassage("Error", "Please enter valid data.");
             }
-        } catch (NumberFormatException e) {
-            Message.displayMassage("Error", "Please enter valid data.");
         }
+    }
+
+    private boolean validateFields() {
+        if (txtID.getText().isEmpty() || txtPurchaseDate.getText().isEmpty() || txtAmount.getText().isEmpty() ||
+                txtTotalPrice.getText().isEmpty() || txtQuantity.getText().isEmpty() || comboCompany.getValue() == null) {
+            Message.displayMassage("Error", "All fields must be filled out.");
+            return false;
+        }
+
+        try {
+            Double.parseDouble(txtAmount.getText());
+            Double.parseDouble(txtTotalPrice.getText());
+            Integer.parseInt(txtQuantity.getText());
+        } catch (NumberFormatException e) {
+            Message.displayMassage("Error", "Invalid number format.");
+            return false;
+        }
+        return true;
     }
 
     private boolean checkIfTransactionExists(int transactionID) {
         String query = "SELECT Transaction_ID FROM Transactions WHERE Transaction_ID = ?";
-        try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, transactionID);
             ResultSet rs = pstmt.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            Message.displayMassage("Error: ", e.getMessage());
+            Message.displayMassage("Error", e.getMessage());
         }
         return false;
     }
 
     private int getCompanyIDByName(String companyName) {
         String query = "SELECT CompanyID FROM Company WHERE CompanyName = ?";
-        try (Connection conn = new ConnectionToDatabase().connectToDB(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, companyName);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("CompanyID");
             }
         } catch (SQLException e) {
-            Message.displayMassage("Error: ", e.getMessage());
+            Message.displayMassage("Error", e.getMessage());
         }
         return -1;
+    }
+
+    private void insertTransaction(int transactionID, String purchaseDate, double amount, double totalPrice, int quantity, int companyID, String model) {
+        String insertQuery = "INSERT INTO Transactions (Transaction_ID, Purchase_Date, Amount, Quantity_Bought, Total_Price, CompanyID) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
+            pstmt.setInt(1, transactionID);
+            pstmt.setString(2, purchaseDate);
+            pstmt.setDouble(3, amount);
+            pstmt.setInt(4, quantity);
+            pstmt.setDouble(5, totalPrice);
+            pstmt.setInt(6, companyID);
+            pstmt.executeUpdate();
+            updateModelQuantity(model, quantity);
+            Message.displayMassage("Success", "Transaction added successfully!");
+        } catch (SQLException e) {
+            Message.displayMassage("Error", e.getMessage());
+        }
+    }
+
+    private void updateTransaction(int transactionID, String purchaseDate, double amount, double totalPrice, int quantity, int companyID, String model) {
+        String updateQuery = "UPDATE Transactions SET Purchase_Date = ?, Amount = ?, Quantity_Bought = ?, Total_Price = ?, CompanyID = ? WHERE Transaction_ID = ?";
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
+            pstmt.setString(1, purchaseDate);
+            pstmt.setDouble(2, amount);
+            pstmt.setInt(3, quantity);
+            pstmt.setDouble(4, totalPrice);
+            pstmt.setInt(5, companyID);
+            pstmt.setInt(6, transactionID);
+            pstmt.executeUpdate();
+            updateModelQuantity(model, quantity);
+            Message.displayMassage("Success", "Transaction updated successfully!");
+        } catch (SQLException e) {
+            Message.displayMassage("Error", e.getMessage());
+        }
+    }
+
+    private void updateModelQuantity(String model, int quantity) {
+        String updateModelQuery = "UPDATE Appliances SET Quantity = Quantity + ? WHERE ModelNumber = ?";
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             PreparedStatement pstmt = conn.prepareStatement(updateModelQuery)) {
+            pstmt.setInt(1, quantity);
+            pstmt.setString(2, model);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Message.displayMassage("Error", e.getMessage());
+        }
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) Insert.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     void handlecomboCompany(ActionEvent event) {
         String selectedCompany = comboCompany.getValue();
-        System.out.println("Selected Company: " + selectedCompany);
-    }
+        if (selectedCompany != null) {
+            System.out.println("Selected Company: " + selectedCompany);
 
+        }
+    }
     public void loadTransactionData(Transactions transaction) {
         this.transactionToUpdate = transaction;
         txtID.setText(String.valueOf(transaction.getTransactionID()));
@@ -162,3 +207,5 @@ public class NewTransactionController implements Initializable {
         txtModel.setText(transaction.getAppliancesModel());
     }
 }
+
+
