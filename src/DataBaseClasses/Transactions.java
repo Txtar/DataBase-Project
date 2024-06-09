@@ -10,21 +10,21 @@ public class Transactions {
     private double totalPrice;
     private int companyID;
     private String companyName;
-    private String AppliancesModel;
+    private String ModelNumber;
 
     public Transactions() {
         super();
     }
 
-    public Transactions(int transactionID, Date purchaseDate, double amount, int quantityBought, double totalPrice, int companyID,String companyName,String AppliancesModel) {
+    public Transactions(int transactionID, Date purchaseDate, double amount, int quantityBought, double totalPrice, int companyID, String companyName, String ModelNumber) {
         this.transactionID = transactionID;
         this.purchaseDate = purchaseDate;
         this.amount = amount;
         this.quantityBought = quantityBought;
         this.totalPrice = totalPrice;
         this.companyID = companyID;
-        this.companyName=companyName;
-        this.AppliancesModel = AppliancesModel;
+        this.companyName = companyName;
+        this.ModelNumber = ModelNumber;
     }
 
     public int getTransactionID() {
@@ -83,11 +83,11 @@ public class Transactions {
         this.companyName = companyName;
     }
 
-    public String getAppliancesModel() {
-        return AppliancesModel;
+    public String getModelNumber() {
+        return ModelNumber;
     }
 
-    public void setAppliancesModel(String AppliancesModel) {
-        this.AppliancesModel = AppliancesModel;
+    public void setModelNumber(String AppliancesModel) {
+        this.ModelNumber = AppliancesModel;
     }
 }

@@ -16,11 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -84,10 +80,10 @@ public class TransactionsController implements Initializable {
     }
 
     private void loadTransactionsData() {
-        String query = "SELECT t.Transaction_ID, t.Purchase_Date, t.Quantity_Bought, t.Total_Price, t.Amount, t.CompanyID, " +
+        String query = "SELECT t.Transaction_ID, t.Purchase_Date, t.Quantity_Bought, t.Total_Price, t.Amount, " +
+                "t.CompanyID, t.ModelNumber, " +
                 "(SELECT c.CompanyName FROM Company c WHERE c.CompanyID = t.CompanyID) AS CompanyName, " +
-                "(SELECT COALESCE(a.ModelNumber, 'Unknown Model') FROM Appliances a WHERE a.ModelNumber = " +
-                "(SELECT eact.ModelNumber FROM EmployeeAppliancesCustomersTransactions eact WHERE eact.employeeID = t.Transaction_ID LIMIT 1)) AS AppliancesModel " +
+                "(SELECT a.ModelNumber FROM Appliances a WHERE a.ModelNumber = t.ModelNumber) AS AppliancesModel " +
                 "FROM Transactions t " +
                 "ORDER BY t.Transaction_ID";
 
@@ -105,17 +101,16 @@ public class TransactionsController implements Initializable {
                         rs.getDouble("Total_Price"),
                         rs.getInt("CompanyID"),
                         rs.getString("CompanyName"),
-                        rs.getString("AppliancesModel") == null ? "Unknown Model" : rs.getString("AppliancesModel")
+                        rs.getString("ModelNumber")
                 );
                 transactionsList.add(transaction);
             }
             tableTransactions.setItems(transactionsList);
 
         } catch (SQLException e) {
-            Message.displayMassage("Error: " , e.getMessage());
+            Message.displayMassage("Error: ", e.getMessage());
         }
     }
-
 
     @FXML
     void AddTransaction(ActionEvent event) {
@@ -185,11 +180,9 @@ public class TransactionsController implements Initializable {
             loadTransactionsData();
             return;
         }
-
         String query = "SELECT t.Transaction_ID, t.Purchase_Date, t.Quantity_Bought, t.Total_Price, t.Amount, t.CompanyID, " +
                 "(SELECT c.CompanyName FROM Company c WHERE c.CompanyID = t.CompanyID) AS CompanyName, " +
-                "(SELECT IFNULL(a.ModelNumber, 'Unknown Model') FROM Appliances a WHERE a.ModelNumber = " +
-                "(SELECT eact.ModelNumber FROM EmployeeAppliancesCustomersTransactions eact WHERE eact.employeeID = t.Transaction_ID LIMIT 1)) AS AppliancesModel " +
+                "(SELECT a.ModelNumber FROM Appliances a WHERE a.ModelNumber = t.ModelNumber) AS ModelNumber " +
                 "FROM Transactions t " +
                 "WHERE t.Transaction_ID = " + search;
 
@@ -204,13 +197,13 @@ public class TransactionsController implements Initializable {
                         rs.getDouble("Total_Price"),
                         rs.getInt("CompanyID"),
                         rs.getString("CompanyName"),
-                        rs.getString("AppliancesModel")
+                        rs.getString("ModelNumber")
                 );
                 transactionsList.add(transaction);
             }
             tableTransactions.setItems(transactionsList);
         } catch (SQLException e) {
-            Message.displayMassage("Error: " ,e.getMessage());
+            Message.displayMassage("Error: ", e.getMessage());
         }
     }
 }

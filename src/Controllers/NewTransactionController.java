@@ -12,7 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class NewTransactionController implements Initializable {
@@ -50,10 +53,10 @@ public class NewTransactionController implements Initializable {
     }
 
     private void loadCompanyNames() {
-        String query = "SELECT CompanyID, CompanyName FROM Company";
+        String query = "SELECT CompanyName FROM Company";
         try (Connection conn = new ConnectionToDatabase().connectToDB();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 companyList.add(rs.getString("CompanyName"));
             }
@@ -91,7 +94,7 @@ public class NewTransactionController implements Initializable {
 
     private boolean validateFields() {
         if (txtID.getText().isEmpty() || txtPurchaseDate.getText().isEmpty() || txtAmount.getText().isEmpty() ||
-                txtTotalPrice.getText().isEmpty() || txtQuantity.getText().isEmpty() || comboCompany.getValue() == null) {
+                txtTotalPrice.getText().isEmpty() || txtQuantity.getText().isEmpty() || comboCompany.getValue() == null || txtModel.getText().isEmpty()) {
             Message.displayMassage("Error", "All fields must be filled out.");
             return false;
         }
@@ -136,7 +139,7 @@ public class NewTransactionController implements Initializable {
     }
 
     private void insertTransaction(int transactionID, String purchaseDate, double amount, double totalPrice, int quantity, int companyID, String model) {
-        String insertQuery = "INSERT INTO Transactions (Transaction_ID, Purchase_Date, Amount, Quantity_Bought, Total_Price, CompanyID) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Transactions (Transaction_ID, Purchase_Date, Amount, Quantity_Bought, Total_Price, CompanyID, ModelNumber) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = new ConnectionToDatabase().connectToDB();
              PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
             pstmt.setInt(1, transactionID);
@@ -145,6 +148,7 @@ public class NewTransactionController implements Initializable {
             pstmt.setInt(4, quantity);
             pstmt.setDouble(5, totalPrice);
             pstmt.setInt(6, companyID);
+            pstmt.setString(7, model);
             pstmt.executeUpdate();
             updateModelQuantity(model, quantity);
             Message.displayMassage("Success", "Transaction added successfully!");
@@ -154,7 +158,7 @@ public class NewTransactionController implements Initializable {
     }
 
     private void updateTransaction(int transactionID, String purchaseDate, double amount, double totalPrice, int quantity, int companyID, String model) {
-        String updateQuery = "UPDATE Transactions SET Purchase_Date = ?, Amount = ?, Quantity_Bought = ?, Total_Price = ?, CompanyID = ? WHERE Transaction_ID = ?";
+        String updateQuery = "UPDATE Transactions SET Purchase_Date = ?, Amount = ?, Quantity_Bought = ?, Total_Price = ?, CompanyID = ?, ModelNumber = ? WHERE Transaction_ID = ?";
         try (Connection conn = new ConnectionToDatabase().connectToDB();
              PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
             pstmt.setString(1, purchaseDate);
@@ -162,7 +166,8 @@ public class NewTransactionController implements Initializable {
             pstmt.setInt(3, quantity);
             pstmt.setDouble(4, totalPrice);
             pstmt.setInt(5, companyID);
-            pstmt.setInt(6, transactionID);
+            pstmt.setString(6, model);
+            pstmt.setInt(7, transactionID);
             pstmt.executeUpdate();
             updateModelQuantity(model, quantity);
             Message.displayMassage("Success", "Transaction updated successfully!");
@@ -193,9 +198,9 @@ public class NewTransactionController implements Initializable {
         String selectedCompany = comboCompany.getValue();
         if (selectedCompany != null) {
             System.out.println("Selected Company: " + selectedCompany);
-
         }
     }
+
     public void loadTransactionData(Transactions transaction) {
         this.transactionToUpdate = transaction;
         txtID.setText(String.valueOf(transaction.getTransactionID()));
@@ -204,8 +209,6 @@ public class NewTransactionController implements Initializable {
         txtTotalPrice.setText(String.valueOf(transaction.getTotalPrice()));
         txtQuantity.setText(String.valueOf(transaction.getQuantityBought()));
         comboCompany.setValue(transaction.getCompanyName());
-        txtModel.setText(transaction.getAppliancesModel());
+        txtModel.setText(transaction.getModelNumber());
     }
 }
-
-
