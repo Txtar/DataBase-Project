@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataBaseClasses.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,6 +42,14 @@ public class NewEmployeeController implements Initializable {
     @FXML
     void handleCombAddress(ActionEvent event) {
 
+    }
+    public void loadEmployeeData(Employee employee) {
+        txtName.setText(employee.getEmployeeName());
+        txtPhoneNumber.setText(employee.getEmployeePhoneNumber());
+        txtSalary.setText(String.valueOf(employee.getEmployeeSalary()));
+        combAddress.setValue(employee.getEmployeeAddress());
+        txtMonthlyDaysWorked.setText(String.valueOf(employee.getEmployeeMonthlyDaysWorked()));
+        txtYearsExperience.setText(String.valueOf(employee.getEmployeeYearExperience()));
     }
 
     @Override
@@ -94,4 +103,5 @@ public class NewEmployeeController implements Initializable {
             Message.displayMassage("Error", "Please enter valid numeric values for salary, monthly days worked, and years of experience.");
         }
     }
+
 }
