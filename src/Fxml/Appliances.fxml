@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="677.0" prefWidth="1086.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppliancesController">
    <children>
-      <TableView fx:id="tableProducts" editable="true" layoutX="7.0" layoutY="229.0" prefHeight="423.0" prefWidth="1075.0" styleClass="table" stylesheets="@../Style/Style.css" AnchorPane.rightAnchor="4.0">
+      <TableView fx:id="tableProducts" editable="true" layoutX="7.0" layoutY="229.0" prefHeight="423.0" prefWidth="1075.0" styleClass="table" stylesheets="@../Style/Style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0">
          <columns>
             <TableColumn fx:id="cmModelNumber" editable="false" prefWidth="124.0" sortable="false" text="Model Number" />
             <TableColumn fx:id="cmName" editable="false" prefWidth="113.0" sortable="false" text="Name" />

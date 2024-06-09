@@ -28,23 +28,13 @@ CREATE TABLE Customers (
     Address VARCHAR(255)
 );
 
--- Create Payments table
-CREATE TABLE Payments (
-    PaymentID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    DateOfPayment DATE,
-    Amount REAL,
-    PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
-    CustomerID INT,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 -- Create Company table
 CREATE TABLE Company (
     CompanyID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     CompanyName VARCHAR(100),
     Address VARCHAR(255),
     PhoneNumber VARCHAR(15),
-    Account VARCHAR(50)
+    Account INT
 );
 
 -- Create Appliances table
@@ -57,9 +47,21 @@ CREATE TABLE Appliances (
     SellingPrice REAL,
     Quantity INT,
     StorageID INT,
-    CompanyID Int,
+    CompanyID INT,
     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (StorageID) REFERENCES Storage(StorageID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Create Payments table
+CREATE TABLE Payments (
+    PaymentID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    DateOfPayment DATE,
+    Amount REAL,
+    PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
+    CustomerID INT,
+    ModelNumber VARCHAR(20),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Transactions table
@@ -70,7 +72,9 @@ CREATE TABLE Transactions (
     Quantity_Bought INT,
     Total_Price REAL,
     CompanyID INT,
-    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE
+    ModelNumber VARCHAR(20),
+    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create EmployeeStorageAccess table
@@ -113,23 +117,11 @@ CREATE TABLE Cash (
     FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-- Insert demo values into Employee
 INSERT INTO Employee (employeeName, employeeSalary, employeePhoneNumber, employeeAddress, employeeMonthlyDaysWorked, employeeYearExperience)
 VALUES
-    ('abood', 1000.0, '05931315930', 'hebron', 25, 2),
-    ('john', 1200.0, '05931315931', 'ramallah', 20, 1);
-
--- Update Employee data
-UPDATE Employee
-SET employeeName = 'Abood',
-    employeeSalary = 1500.0,
-    employeePhoneNumber = '0593915930',
-    employeeAddress = 'Hebron',
-    employeeMonthlyDaysWorked = 28,
-    employeeYearExperience = 3
-WHERE employeeID = 1;
-
--- Show data in Employee table
-SELECT * FROM Employee;
+    ('Abood', 1500.0, '0593915930', 'Hebron', 28, 3),
+    ('John', 1200.0, '05931315931', 'Ramallah', 20, 1);
 
 -- Insert demo values into Storage
 INSERT INTO Storage (storageLocation)
@@ -143,24 +135,24 @@ VALUES ('Alice Johnson', '555-8765', '789 Oak St'),
 
 -- Insert demo values into Company
 INSERT INTO Company (CompanyName, Address, PhoneNumber, Account)
-VALUES ('Tech Corp', '456 Technology Dr', '555-9999', 'ACC123'),
-       ('Home Goods Inc.', '123 Market St', '555-8888', 'ACC456');
+VALUES ('Tech Corp', '456 Technology Dr', '555-9999', 1000),
+       ('Home Goods Inc.', '123 Market St', '555-8888', 2000);
 
 -- Insert demo values into Appliances
-INSERT INTO Appliances (ModelNumber, ApplianceName, WarranteeForPeriodOfTime, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID,CompanyID)
-VALUES ('301', 'Washing Machine', '2 years', 400.00, 450.00, 500.00, 10, 1,1),
-       ('302', 'Refrigerator', '3 years', 300.00, 350.00, 400.00, 5, 2,2);
+INSERT INTO Appliances (ModelNumber, ApplianceName, WarranteeForPeriodOfTime, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID, CompanyID)
+VALUES ('301', 'Washing Machine', '2 years', 400.00, 450.00, 500.00, 10, 1, 1),
+       ('302', 'Refrigerator', '3 years', 300.00, 350.00, 400.00, 5, 2, 2);
 
 -- Insert demo values into Transactions
-INSERT INTO Transactions (Purchase_Date,Amount,Quantity_Bought, Total_Price, CompanyID)
-VALUES ('2024-05-10',21.4, 1, 500.00, 1),  -- Corrected CompanyID to match existing data
-       ('2024-05-12',98.3, 2, 800.00, 2);  -- Corrected CompanyID to match existing data
+INSERT INTO Transactions (Purchase_Date, Amount, Quantity_Bought, Total_Price, CompanyID, ModelNumber)
+VALUES ('2024-05-10', 21.4, 1, 500.00, 1, '301'),
+       ('2024-05-12', 98.3, 2, 800.00, 2, '302');
 
 -- Insert demo values into Payments
-INSERT INTO Payments (DateOfPayment, Amount, PaymentMethod, CustomerID)
-VALUES ('2024-05-01', 150.00, 'Credit', 1),
-       ('2024-05-05', 200.00, 'Cash', 2),
-       ('2024-05-10', 300.00, 'Installment', 1);
+INSERT INTO Payments (DateOfPayment, Amount, PaymentMethod, CustomerID, ModelNumber)
+VALUES ('2024-05-01', 150.00, 'Installment', 1, '301'),
+       ('2024-05-05', 200.00, 'Cash', 2, '302'),
+       ('2024-05-10', 300.00, 'Installment', 1, '301');
 
 -- Insert demo values into Installment
 INSERT INTO Installment (PaymentID, InstallmentPeriod)
@@ -177,7 +169,8 @@ VALUES (2);
 -- Insert demo values into EmployeeStorageAccess
 INSERT INTO EmployeeStorageAccess (employeeID, StorageID)
 VALUES (1, 1),
-       (1, 2); 
+       (1, 2);
+
 -- Insert demo values into EmployeeAppliancesCustomersTransactions
 INSERT INTO EmployeeAppliancesCustomersTransactions (employeeID, ModelNumber, CustomerID)
 VALUES (1, '301', 1),

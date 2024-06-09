@@ -73,20 +73,16 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <TableView fx:id="tableEmployee" layoutX="40.0" layoutY="194.0" prefHeight="472.0" prefWidth="1084.0" styleClass="table" stylesheets="@../Style/Style.css">
-         <columns>
-            <TableColumn fx:id="cmPaymentID" editable="false" prefWidth="211.0" sortable="false" text="Payment ID" />
-            <TableColumn fx:id="cmCustomerName" editable="false" prefWidth="265.0" sortable="false" text="Customer Name" />
-            <TableColumn fx:id="cmAmount" editable="false" prefWidth="253.0" sortable="false" text="Amount" />
-            <TableColumn fx:id="cmDateOfPayment" editable="false" prefWidth="352.0" sortable="false" text="Date Of Payment " />
-         </columns>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </TableView>
+      <TableView fx:id="tablePayment" layoutX="40.0" layoutY="194.0" prefHeight="472.0" prefWidth="1084.0" styleClass="table" stylesheets="@../Style/Style.css">
+    <columns>
+        <TableColumn fx:id="cmPaymentID" prefWidth="211.0" text="Payment ID" />
+        <TableColumn fx:id="cmCustomerName" prefWidth="265.0" text="Customer Name" />
+        <TableColumn fx:id="cmAmount" prefWidth="253.0" text="Amount" />
+        <TableColumn fx:id="cmDateOfPayment" prefWidth="352.0" text="Date Of Payment" />
+        <TableColumn fx:id="cmPaymentMethod" prefWidth="200.0" text="Payment Method" />
+    </columns>
+</TableView>
+
       <Button fx:id="btDetails" layoutX="484.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleBtDetails" prefHeight="48.0" prefWidth="130.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Details" textFill="#830707">
          <font>
             <Font name="System Bold" size="15.0" />
