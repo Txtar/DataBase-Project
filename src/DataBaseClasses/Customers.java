@@ -5,17 +5,31 @@ public class Customers {
     private String customerName;
     private String phoneNumber;
     private String address;
+    private String ModelNumber ;
+    private int account;
+    private double totalPrice;
 
     public Customers() {
         super();
-
     }
 
-    public Customers(int customerID, String customerName, String phoneNumber, String address) {
+    public Customers(int customerID, String customerName, String phoneNumber, String address, String modelNumber, int account, double totalPrice) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        ModelNumber = modelNumber;
+        this.account = account;
+        this.totalPrice = totalPrice;
+    }
+
+
+    public String getModelNumber() {
+        return ModelNumber;
+    }
+
+    public void setModelNumber(String modelNumber) {
+        ModelNumber = modelNumber;
     }
 
     public int getCustomerID() {
@@ -49,5 +63,20 @@ public class Customers {
     public void setAddress(String address) {
         this.address = address;
     }
-}
 
+    public int getAccount() {
+        return account;
+    }
+
+    public void setAccount(int account) {
+        this.account = account;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+}

@@ -21,12 +21,7 @@ CREATE TABLE Storage (
 );
 
 -- Create Customers table
-CREATE TABLE Customers (
-    CustomerID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    CustomerName VARCHAR(100),
-    PhoneNumber VARCHAR(15),
-    Address VARCHAR(255)
-);
+
 
 -- Create Company table
 CREATE TABLE Company (
@@ -51,7 +46,16 @@ CREATE TABLE Appliances (
     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (StorageID) REFERENCES Storage(StorageID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    CustomerName VARCHAR(100),
+    PhoneNumber VARCHAR(15),
+    Account int,
+    ModelNumber varchar(20),
+    Address VARCHAR(255),
+    totalPrice real,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
+);
 -- Create Payments table
 CREATE TABLE Payments (
     PaymentID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -129,9 +133,9 @@ VALUES ('Warehouse A'),
        ('Warehouse B');
 
 -- Insert demo values into Customers
-INSERT INTO Customers (CustomerName, PhoneNumber, Address)
-VALUES ('Alice Johnson', '555-8765', '789 Oak St'),
-       ('Bob Brown', '555-4321', '321 Pine St');
+INSERT INTO Customers (CustomerName, PhoneNumber, Account,Address,totalPrice)
+VALUES                ('Alice Johnson', '555-8765',3  , '789 Oak St', 30),
+                       ('Bob Brown' , '555-4321', 3 , '321 Pine St' , 20);
 
 -- Insert demo values into Company
 INSERT INTO Company (CompanyName, Address, PhoneNumber, Account)
