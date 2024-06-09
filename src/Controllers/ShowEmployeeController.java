@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataBaseClasses.Appliances;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -134,13 +135,53 @@ public class ShowEmployeeController implements Initializable {
 
     @FXML
     void updateEmployees(ActionEvent event) {
+        Employee selectedEmployee = tableEmployee.getSelectionModel().getSelectedItem();
+        if (selectedEmployee == null) {
+            Message.displayMassage("Error", "No employee selected!");
+            return;
+        }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/NewEmployee.fxml"));
+            Parent root = loader.load();
+
+            NewEmployeeController controller = loader.getController();
+            controller.loadEmployeeData(selectedEmployee); // Call loadEmployeeData
+
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Update Employee");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Error", exception.getMessage());
+        }
     }
 
     @FXML
     void deleteEmployee(ActionEvent event) {
 
+        Employee selectedEmployee = tableEmployee.getSelectionModel().getSelectedItem();
+        if (selectedEmployee == null) {
+            Message.displayMassage("Error", "No employee selected!");
+            return;
+        }
+
+        String deleteQuery = "DELETE FROM Employee WHERE employeeID = ?";
+
+        try (Connection conn = new ConnectionToDatabase().connectToDB();
+             PreparedStatement pstmt = conn.prepareStatement(deleteQuery)) {
+            pstmt.setInt(1, selectedEmployee.getEmployeeID());
+            pstmt.executeUpdate();
+            tableEmployee.getItems().remove(selectedEmployee);
+            Message.displayMassage("Success", "Employee deleted successfully!");
+        } catch (SQLException e) {
+            Message.displayMassage("Error: ", e.getMessage());
+        }
     }
+
+
 
     @FXML
     void handleBtSearch(ActionEvent event) {
