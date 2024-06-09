@@ -28,16 +28,6 @@ CREATE TABLE Customers (
     Address VARCHAR(255)
 );
 
--- Create Payments table
-CREATE TABLE Payments (
-    PaymentID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    DateOfPayment DATE,
-    Amount REAL,
-    PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
-    CustomerID INT,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 -- Create Company table
 CREATE TABLE Company (
@@ -45,7 +35,7 @@ CREATE TABLE Company (
     CompanyName VARCHAR(100),
     Address VARCHAR(255),
     PhoneNumber VARCHAR(15),
-    Account VARCHAR(50)
+    Account INT
 );
 
 -- Create Appliances table
@@ -63,6 +53,20 @@ CREATE TABLE Appliances (
     FOREIGN KEY (StorageID) REFERENCES Storage(StorageID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+-- Create Payments table
+CREATE TABLE Payments (
+    PaymentID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    DateOfPayment DATE,
+    Amount REAL,
+    PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
+    CustomerID INT,
+    ModelNumber VARCHAR(20),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
 -- Create Transactions table
 CREATE TABLE Transactions (
     Transaction_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -71,6 +75,7 @@ CREATE TABLE Transactions (
     Quantity_Bought INT,
     Total_Price REAL,
     CompanyID INT,
+    ModelNumber VARCHAR(20),
     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -145,8 +150,8 @@ VALUES ('Alice Johnson', '555-8765', '789 Oak St'),
 
 -- Insert demo values into Company
 INSERT INTO Company (CompanyName, Address, PhoneNumber, Account)
-VALUES ('Tech Corp', '456 Technology Dr', '555-9999', 'ACC123'),
-       ('Home Goods Inc.', '123 Market St', '555-8888', 'ACC456');
+VALUES ('Tech Corp', '456 Technology Dr', '555-9999', '1000'),
+       ('Home Goods Inc.', '123 Market St', '555-8888', '2000');
 
 -- Insert demo values into Appliances
 INSERT INTO Appliances (ModelNumber, ApplianceName, WarranteeForPeriodOfTime, BuyingPrice, OfferPrice, SellingPrice, Quantity, StorageID,CompanyID)
