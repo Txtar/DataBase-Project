@@ -35,7 +35,8 @@ CREATE TABLE Payments (
     Amount REAL,
     PaymentMethod VARCHAR(50), -- This should have values 'Installment', 'Credit', 'Cash'
     CustomerID INT,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create Company table
@@ -70,7 +71,8 @@ CREATE TABLE Transactions (
     Quantity_Bought INT,
     Total_Price REAL,
     CompanyID INT,
-    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ModelNumber) REFERENCES Appliances(ModelNumber) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create EmployeeStorageAccess table
@@ -153,8 +155,8 @@ VALUES ('301', 'Washing Machine', '2 years', 400.00, 450.00, 500.00, 10, 1,1),
 
 -- Insert demo values into Transactions
 INSERT INTO Transactions (Purchase_Date,Amount,Quantity_Bought, Total_Price, CompanyID)
-VALUES ('2024-05-10',21.4, 1, 500.00, 1),  -- Corrected CompanyID to match existing data
-       ('2024-05-12',98.3, 2, 800.00, 2);  -- Corrected CompanyID to match existing data
+VALUES ('2024-05-10',21.4, 1, 500.00, 1),  
+       ('2024-05-12',98.3, 2, 800.00, 2); 
 
 -- Insert demo values into Payments
 INSERT INTO Payments (DateOfPayment, Amount, PaymentMethod, CustomerID)
