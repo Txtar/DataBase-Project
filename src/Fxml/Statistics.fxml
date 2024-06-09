@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="449.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.StatisticsController">
+   <children>
+      <Pane layoutX="10.0" layoutY="10.0" prefHeight="103.0" prefWidth="579.0" style="-fx-background-color: #910018;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="296.0" layoutY="18.0" prefHeight="67.0" prefWidth="139.0" text="Statistics" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="93.0" fitWidth="150.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Statistics.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="btEmployeeSalary" layoutX="35.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleBtEmployeeSalary" prefHeight="55.0" prefWidth="52.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
+         <graphic>
+            <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
+               <graphic>
+                  <ImageView fitHeight="59.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/Employee.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </graphic>
+      </Button>
+      <Button fx:id="btClientsTotalDept" layoutX="33.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleBtClientsTotalDept" prefHeight="75.0" prefWidth="76.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
+         <graphic>
+            <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
+               <graphic>
+                  <ImageView fitHeight="59.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/Customer.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </graphic>
+      </Button>
+      <Button fx:id="btCompanyTotalDept" layoutX="33.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleBtCompanyTotalDept" prefHeight="75.0" prefWidth="76.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
+         <graphic>
+            <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
+               <graphic>
+                  <ImageView fitHeight="59.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/Company.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </graphic>
+      </Button>
+      <TextField fx:id="EmployeeTotalPay" layoutX="164.0" layoutY="146.0" />
+      <TextField fx:id="txtCustomersTotalDept" layoutX="164.0" layoutY="231.0" />
+      <TextField fx:id="txtCompanyTotalDept" layoutX="164.0" layoutY="315.0" />
+      <Button fx:id="btRefreshAll" layoutX="546.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleBtRefreshAll" prefHeight="37.0" prefWidth="130.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
+      <TextField fx:id="txtAverageClientDebt" layoutX="372.0" layoutY="231.0" />
+      <Label layoutX="372.0" layoutY="194.0" prefHeight="37.0" prefWidth="149.0" text="Avg Client Dept:" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtAverageCompanyDebt" layoutX="372.0" layoutY="315.0" />
+      <Label layoutX="372.0" layoutY="281.0" prefHeight="37.0" prefWidth="159.0" text="Avg Company Accounts:" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtAverageEmployeeSalary" layoutX="372.0" layoutY="146.0" />
+      <Label layoutX="372.0" layoutY="109.0" prefHeight="37.0" prefWidth="159.0" text="Avg Employee Salary:" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="164.0" layoutY="109.0" prefHeight="37.0" prefWidth="159.0" text="Total Employees Salary:" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="164.0" layoutY="190.0" prefHeight="37.0" prefWidth="159.0" text="Total Client's Dept:" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="159.0" layoutY="281.0" prefHeight="37.0" prefWidth="159.0" text="Total Company Account:" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

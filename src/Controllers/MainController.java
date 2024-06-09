@@ -34,6 +34,9 @@ public class MainController {
     private Button TransactionsInterface;
 
     @FXML
+    private Button StatistcsInterface;
+
+    @FXML
     void AppliancesInterface(ActionEvent event) throws IOException {
         loadFXML("Appliances.fxml");
     }
@@ -41,7 +44,6 @@ public class MainController {
     @FXML
     void CompanyInterface(ActionEvent event) throws IOException {
         loadFXML("Company.fxml");
-
     }
 
     @FXML
@@ -51,7 +53,7 @@ public class MainController {
 
     @FXML
     void EmployeesInterface(ActionEvent event) throws IOException {
-         loadFXML("ShowEmployee.fxml");
+        loadFXML("ShowEmployee.fxml");
     }
 
     @FXML
@@ -67,6 +69,11 @@ public class MainController {
     @FXML
     void TransactionsInterface(ActionEvent event) throws IOException {
         loadFXML("Transactions.fxml");
+    }
+
+    @FXML
+    void StatisticsInterface(ActionEvent event) throws IOException {
+        loadFXML("Statistics.fxml");
     }
 
     private void loadFXML(String fxmlFile) throws IOException {

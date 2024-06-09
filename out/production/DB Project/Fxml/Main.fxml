@@ -98,5 +98,15 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Button fx:id="StatistcsInterface" layoutX="404.0" layoutY="383.0" mnemonicParsing="false" onAction="#StatisticsInterface" prefHeight="49.0" prefWidth="169.0" text="Statistics" textFill="#910018">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="49.0" fitWidth="47.0" layoutX="337.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/Statistics.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -48,8 +48,8 @@ public class CustomerController {
 
     private Connection connect() {
         String url = "jdbc:mysql://localhost:3306/technicalcenter";
-        String user = "taki";
-        String password = "taki";
+        String user = "root";
+        String password = "212rr735";
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
